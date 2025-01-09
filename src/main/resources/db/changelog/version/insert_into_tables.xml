@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                   https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="app-user-inserts" author="admin">
+        <insert tableName="app_user">
+            <column name="first_name" value = "Marcin"/>
+            <column name="last_name" value = "Zaczeniuk"/>
+            <column name="email" value="m.zaczeniuk@gmail.com"/>
+            <column name="username" value="Admin"/>
+            <column name="password" value="10a23e7eacabe2317f458fac266a50233d5d02b31244be70477f4d780b7d2255"/> <!-- hasloo -->
+            <column name="role" value="Administrator"/>
+        </insert>
+        <insert tableName="app_user">
+            <column name="first_name" value = "Piotr"/>
+            <column name="last_name" value = "Nalewajko"/>
+            <column name="email" value="p.nalewajko@gmail.com"/>
+            <column name="username" value="Piotrulo123"/>
+            <column name="password" value="10a23e7eacabe2317f458fac266a50233d5d02b31244be70477f4d780b7d2255"/> <!-- hasloo -->
+            <column name="role" value="Uzytkownik"/>
+        </insert>
+    </changeSet>
+</databaseChangeLog>
