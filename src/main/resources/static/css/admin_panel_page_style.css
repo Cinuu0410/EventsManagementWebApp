@@ -1,0 +1,41 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+}
+
+.admin-container {
+    max-width: 1200px;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+    text-align: center;
+    color: #041d75;
+    margin-bottom: 40px;
+}
+
+.admin-actions {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+.admin-btn {
+    padding: 15px 30px;
+    font-size: 18px;
+    text-decoration: none;
+    background-color: #041d75;
+    color: white;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+.admin-btn:hover {
+    background-color: #6588c8;
+}

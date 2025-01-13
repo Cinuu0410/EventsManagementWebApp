@@ -4,6 +4,7 @@
                    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
                    https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
 
+<!--    Tabela app_user    -->
     <changeSet id="app-user-table-create" author="admin">
         <createTable tableName="app_user">
             <column name="id" type="BIGINT" autoIncrement="true">
@@ -28,6 +29,58 @@
                 <constraints nullable="false"/>
             </column>
         </createTable>
+    </changeSet>
+
+    <!--    Tabela event    -->
+    <changeSet id="event-table-create" author="admin">
+        <createTable tableName="event">
+            <column name="id" type="BIGINT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="title" type="VARCHAR(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="description" type="VARCHAR(102)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="category" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="image" type="BLOB">
+                <constraints nullable="true"/>
+            </column>
+            <column name="event_date" type="TIMESTAMP">
+                <constraints nullable="false"/>
+            </column>
+            <column name="created_at" type="TIMESTAMP">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="comments-table-create" author="admin">
+        <createTable tableName="comment">
+            <column name="id" type="BIGINT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="content" type="VARCHAR(500)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="user_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="event_id" type="BIGINT">
+                <constraints nullable="false" foreignKeyName="fk_event_comments" references="event(id)"/>
+            </column>
+            <column name="created_at" type="TIMESTAMP">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <addForeignKeyConstraint baseTableName="comment"
+                                 baseColumnNames="user_id"
+                                 referencedTableName="app_user"
+                                 referencedColumnNames="id"
+                                 constraintName="fk_comments_user"/>
     </changeSet>
 
 </databaseChangeLog>

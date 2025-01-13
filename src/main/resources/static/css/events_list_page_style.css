@@ -156,49 +156,6 @@ header {
     background-color: var(--accent-color) !important;
 }
 
-.events-description {
-    background-color: #f4f7fc;
-    padding: 50px 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-}
-
-
-.event-description{
-    margin-bottom: 20px;
-}
-
-.container {
-    text-align: center;
-    max-width: 1000px;
-    width: 100%;
-}
-
-.section-title {
-    font-weight: bold;
-    color: var(--primary-color);
-    font-size: 2.5rem;
-    margin-bottom: 15px;
-}
-
-.lead-description {
-    font-size: 1.2rem;
-    color: var(--neutral-color);
-}
-
-.event-description {
-    color: var(--neutral-color);
-    max-width: 800px;
-    margin: 0 auto 10px;
-}
-
-.event-btn {
-    font-size: 1.1rem;
-    margin-top: 20px;
-}
-
 footer {
     margin-top: auto;
     text-align: center;
@@ -208,46 +165,103 @@ footer {
     width: 100%;
 }
 
-.carousel {
-    z-index: 1000;
+.big-container{
+    background-color: white;
 }
 
-.carousel-inner img {
+.events-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    padding: 20px;
+    margin: 20px auto;
     width: 100%;
-    height: 300px;
+    max-width: 1200px;
+    background-color: #ffffff;
+    height: auto;
+}
+
+.event-card {
+    background-color: rgba(166, 166, 166, 0.29);
+    border-radius: 8px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    text-align: center;
+    transition: transform 0.3s ease;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    height: auto;
+}
+
+.event-card:hover {
+    transform: scale(1.05);
+}
+
+.event-image {
+    width: 100%;
+    height: 200px;
     object-fit: cover;
-    object-position: center;
-    margin: 0 auto;
 }
 
-.carousel-inner .carousel-item:nth-child(1) img {
-    object-position: 40% 80%;
+.event-details {
+    padding: 15px;
+    word-wrap: break-word;
+    white-space: normal;
+    overflow-wrap: break-word;
 }
 
-.carousel-inner .carousel-item:nth-child(4) img {
-    object-position: 40% 40%;
+.event-details h3 {
+    color: var(--primary-color);
+    font-size: 20px;
+    margin-bottom: 10px;
 }
 
-@media (max-width: 1200px) {
-    .section-title {
-        font-size: 2rem;
-    }
+.event-details p {
+    color: var(--neutral-color);
+    font-size: 14px;
+    margin-bottom: 20px;
+}
 
-    .lead-description {
-        font-size: 1.1rem;
-    }
+.event-actions {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
 
-    .event-description {
-        font-size: 1rem;
-    }
+.ticket-btn, .comments-btn {
+    width: 80%;
+    padding: 10px;
+    font-size: 16px;
+    color: white;
+    background-color: var(--primary-color);
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-bottom: 10px;
+    transition: background-color 0.3s;
+}
 
-    .container {
-        padding: 20px;
-    }
+.ticket-btn:hover, .comments-btn:hover {
+    background-color: var(--accent-color);
+}
 
-    .carousel-inner img {
-        height: 250px;
-    }
+.comments-section {
+    display: none;
+    padding: 10px;
+    background-color: #f4f4f4;
+    border-radius: 5px;
+    margin-top: 10px;
+}
+
+.comments-section ul {
+    padding: 0;
+    list-style: none;
+}
+
+.comments-section li {
+    margin-bottom: 10px;
+    color: var(--neutral-color);
 }
 
 @media (max-width: 768px) {
@@ -259,24 +273,8 @@ footer {
         width: 200px;
     }
 
-    .container {
-        padding: 15px;
-    }
-
-    .section-title {
-        font-size: 1.75rem;
-    }
-
-    .lead-description {
-        font-size: 1rem;
-    }
-
-    .event-description {
-        font-size: 0.9rem;
-    }
-
-    .carousel-inner img {
-        height: 200px;
+    .events-container {
+        grid-template-columns: repeat(2, 1fr);
     }
 }
 
@@ -289,27 +287,11 @@ footer {
         font-size: 18px;
     }
 
-    .section-title {
-        font-size: 1.5rem;
+    .events-container {
+        grid-template-columns: 1fr;
     }
 
-    .lead-description {
-        font-size: 0.9rem;
-    }
-
-    .event-description {
-        font-size: 0.8rem;
-    }
-
-    .carousel-inner img {
-        height: 150px;
-    }
-
-    .container {
+    .event-card {
         padding: 10px;
-    }
-
-    p{
-        font-size: 16px; !important;
     }
 }

@@ -21,5 +21,68 @@
             <column name="password" value="10a23e7eacabe2317f458fac266a50233d5d02b31244be70477f4d780b7d2255"/> <!-- hasloo -->
             <column name="role" value="Uzytkownik"/>
         </insert>
+        <insert tableName="app_user">
+            <column name="first_name" value = "Adam"/>
+            <column name="last_name" value = "Kozak"/>
+            <column name="email" value="a.kozak@gmail.com"/>
+            <column name="username" value="Mod"/>
+            <column name="password" value="10a23e7eacabe2317f458fac266a50233d5d02b31244be70477f4d780b7d2255"/> <!-- hasloo -->
+            <column name="role" value="Moderator"/>
+        </insert>
+    </changeSet>
+
+    <changeSet id="event-inserts" author="admin">
+        <insert tableName="event">
+            <column name="title" value = "Juwenalia Białystok 2025"/>
+            <column name="description" value = "Juwenalia znowu zawitają do Białegostoku. Masa artystów, super emocje."/>
+            <column name="category" value = "concert"/>
+            <column name="event_date" value="2025-05-01 18:00:00"/>
+            <column name="created_at" value="2025-01-01"/>
+        </insert>
+        <insert tableName="event">
+            <column name="title" value = "Medykalia Białystok 2025"/>
+            <column name="description" value = "Lekarze, stomatolodzy, kosmetolodzy i reszta! Serdecznie zapraszamy na coroczną imprezę tylko dla UmB!"/>
+            <column name="category" value = "concert"/>
+            <column name="event_date" value="2025-06-20 16:00:00"/>
+            <column name="created_at" value="2025-01-15"/>
+        </insert>
+        <insert tableName="event">
+            <column name="title" value = "Koncert Taylor Swift"/>
+            <column name="description" value = "Taylor w Białymstoku!"/>
+            <column name="category" value = "concert"/>
+            <column name="event_date" value="2025-09-10 20:00:00"/>
+            <column name="created_at" value="2025-01-19"/>
+        </insert>
+        <insert tableName="event">
+            <column name="title" value = "Warsztaty Java"/>
+            <column name="description" value = "Zapraszamy na warsztaty programowania w jężyku Java."/>
+            <column name="category" value = "workshops"/>
+            <column name="event_date" value="2025-09-10 20:00:00"/>
+            <column name="created_at" value="2025-01-19"/>
+        </insert>
+        <insert tableName="event">
+            <column name="title" value = "Konferencja naukowa UwB"/>
+            <column name="description" value = "Przyjdź, zobacz, doświadcz."/>
+            <column name="category" value = "conference"/>
+            <column name="event_date" value="2025-09-10 20:00:00"/>
+            <column name="created_at" value="2025-01-19"/>
+        </insert>
+    </changeSet>
+
+    <changeSet id="comment-inserts" author="admin">
+        <insert tableName="comment">
+            <column name="id" value = "1"/>
+            <column name="content" value = "Pewnie znowu będzie ogromna kolejka..."/>
+            <column name="user_id" value="2"/>
+            <column name="event_id" value="1"/>
+            <column name="created_at" value="2025-01-13 20:00"/>
+        </insert>
+        <insert tableName="comment">
+            <column name="id" value = "2"/>
+            <column name="content" value = "test"/>
+            <column name="user_id" value="1"/>
+            <column name="event_id" value="1"/>
+            <column name="created_at" value="2025-01-13 21:00"/>
+        </insert>
     </changeSet>
 </databaseChangeLog>

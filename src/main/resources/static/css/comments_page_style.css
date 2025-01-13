@@ -1,0 +1,233 @@
+:root {
+    --primary-color: #041d75;
+    --accent-color: #6588c8;
+    --neutral-color: #2c3e50;
+}
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden; /* Zapewnia, że nie ma przewijania w poziomie */
+}
+
+body {
+    font-family: Arial, sans-serif;
+    font-size: 16px;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    background-color: var(--primary-color);
+    color: var(--neutral-color);
+}
+
+header {
+    background-color: var(--primary-color);
+    color: white;
+    padding: 10px 20px;
+    position: relative;
+    text-align: center;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    box-sizing: border-box; /* Zapewnia, że padding nie wpływa na szerokość */
+}
+
+header h1 {
+    font-size: 1.8rem;
+    margin: 0;
+}
+
+header .btn {
+    background-color: white;
+    color: var(--primary-color);
+    text-decoration: none;
+    padding: 8px 15px;
+    border-radius: 5px;
+    font-weight: bold;
+    border: 1px solid var(--primary-color);
+    transition: background-color 0.3s, color 0.3s;
+}
+
+header .btn:hover {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+.comments-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    margin: 20px;
+    gap: 20px;
+    width: 100%;
+    box-sizing: border-box;
+    padding: 0 10px; /* Dodanie odstępu po bokach */
+}
+
+.comments-list, .add-comment {
+    background-color: var(--neutral-color);
+    border: 1px solid var(--accent-color);
+    border-radius: 8px;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    flex: 1 1 45%;
+    min-width: 300px;
+    max-width: 100%;
+    color: white;
+    box-sizing: border-box;
+}
+
+.add-comment {
+    margin-right: 40px;
+}
+
+.comments-list h2, .add-comment h2 {
+    font-size: 1.5rem;
+    margin-bottom: 15px;
+    color: var(--accent-color);
+    border-bottom: 2px solid var(--accent-color);
+    padding-bottom: 5px;
+}
+
+.comments-list ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.comments-list li {
+    margin-bottom: 15px;
+    padding: 10px;
+    background-color: white;
+    border: 1px solid var(--accent-color);
+    border-radius: 5px;
+    color: var(--neutral-color);
+    box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.comments-list li p {
+    margin: 5px 0;
+    line-height: 1.5;
+    color: var(--neutral-color);
+}
+
+.comments-list li p strong {
+    color: var(--primary-color);
+}
+
+.add-comment form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.add-comment textarea {
+    resize: vertical;
+    height: 100px;
+    padding: 10px;
+    font-size: 1rem;
+    border: 1px solid var(--accent-color);
+    border-radius: 5px;
+    box-shadow: inset 0px 1px 3px rgba(0, 0, 0, 0.1);
+    color: var(--neutral-color);
+    background-color: white;
+}
+
+.add-comment button {
+    background-color: var(--primary-color);
+    color: white;
+    font-size: 1rem;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.add-comment button:hover {
+    background-color: var(--accent-color);
+}
+
+footer {
+    margin-top: auto;
+    text-align: center;
+    padding: 10px;
+    background-color: var(--primary-color);
+    color: white;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.big-container {
+    background-color: white;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    padding-bottom: 50px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+
+@media (max-width: 768px) {
+    header {
+        flex-direction: column;
+        padding: 10px;
+    }
+
+    .comments-container {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .comments-list, .add-comment {
+        width: 90%;
+        margin-bottom: 20px;
+        max-width: 100%;
+    }
+
+    .comments-list h2, .add-comment h2 {
+        font-size: 1.2rem;
+    }
+
+    .comments-list li {
+        font-size: 0.9rem;
+    }
+
+    .add-comment textarea {
+        font-size: 0.9rem;
+    }
+
+    .add-comment button {
+        font-size: 0.9rem;
+        padding: 8px 12px;
+    }
+}
+
+@media (max-width: 480px) {
+    .comments-list li {
+        font-size: 0.8rem;
+    }
+
+    .comments-list h2, .add-comment h2 {
+        font-size: 1rem;
+    }
+
+    .comments-list, .add-comment {
+        padding: 15px;
+    }
+
+    .add-comment textarea {
+        font-size: 0.8rem;
+        height: 80px;
+    }
+
+    .add-comment button {
+        font-size: 0.8rem;
+        padding: 8px 10px;
+    }
+}

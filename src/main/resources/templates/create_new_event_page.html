@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" th:href="@{/css/create_new_event_page_style.css}">
+    <title>Events App</title>
+</head>
+<body>
+<div class="upload-container">
+    <h1>Dodaj wydarzenie do bazy danych</h1>
+    <form action="/admin/add-event" method="POST" enctype="multipart/form-data">
+        <label for="title">Tytuł wydarzenia:</label>
+        <input type="text" id="title" name="title" required maxlength="50">
+
+        <label for="description">Opis wydarzenia:</label>
+        <textarea id="description" name="description" required maxlength="102"></textarea>
+
+        <label for="image">Wybierz zdjęcie:</label>
+        <input type="file" id="image" name="image" accept="image/*" required>
+
+        <label for="eventDate">Data wydarzenia:</label>
+        <input type="datetime-local" id="eventDate" name="eventDate" required>
+
+        <button type="submit">Dodaj wydarzenie</button>
+    </form>
+    <a href="/main_page" class="admin-btn">Powrót na stronę główną</a>
+</div>
+</body>
+</html>

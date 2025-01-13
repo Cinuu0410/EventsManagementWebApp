@@ -2,7 +2,8 @@ package com.eventmanager.event_management.Enum;
 
 public enum UserRole {
     ADMINISTRATOR("Administrator"),
-    UZYTKOWNIK("Uzytkownik");
+    UZYTKOWNIK("Uzytkownik"),
+    MODERATOR("Moderator");
 
     private final String roleName;
 

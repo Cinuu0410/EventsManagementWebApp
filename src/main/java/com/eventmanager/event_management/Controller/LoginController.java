@@ -46,11 +46,17 @@ public class LoginController {
     }
 
     @GetMapping("/logout")
-    public String logout(HttpSession session) {
+    public String logout(HttpSession session,RedirectAttributes redirectAttributes) {
         Object loggedInUser = session.getAttribute("loggedInUser");
         if (loggedInUser != null) {
             session.removeAttribute("loggedInUser");
         }
-        return "redirect:/main_page";
+        redirectAttributes.addFlashAttribute("successMessage", "Wylogowano pomyślnie");
+        return "redirect:/logout/success";
+    }
+
+    @GetMapping("/logout/success")
+    public String logoutSuccess() {
+        return "logout_success_page";
     }
 }
