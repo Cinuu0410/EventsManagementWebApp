@@ -25,6 +25,9 @@
             <column name="password" type="VARCHAR(255)">
                 <constraints nullable="false"/>
             </column>
+            <column name="assigned_category" type="VARCHAR(255)">
+                <constraints nullable="true"/>
+            </column>
             <column name="role" type="VARCHAR(255)">
                 <constraints nullable="false"/>
             </column>
@@ -81,6 +84,20 @@
                                  referencedTableName="app_user"
                                  referencedColumnNames="id"
                                  constraintName="fk_comments_user"/>
+    </changeSet>
+
+    <changeSet id="slider-image-table-create" author="admin">
+        <createTable tableName="slider_image">
+            <column name="id" type="BIGINT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="in_slider" type="BOOLEAN">
+                <constraints nullable="false"/>
+            </column>
+            <column name="image" type="BLOB">
+                <constraints nullable="true"/>
+            </column>
+        </createTable>
     </changeSet>
 
 </databaseChangeLog>

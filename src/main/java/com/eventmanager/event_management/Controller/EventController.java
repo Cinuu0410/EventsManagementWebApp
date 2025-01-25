@@ -49,6 +49,21 @@ public class EventController {
             model.addAttribute("role", loggedRole);
         }
         List<Event> getAllEvents = eventService.getAllEvents();
+        for (Event event : getAllEvents) {
+            switch (event.getCategory()) {
+                case "concert":
+                    event.setCategory("Koncert");
+                    break;
+                case "workshops":
+                    event.setCategory("Warsztaty");
+                    break;
+                case "conference":
+                    event.setCategory("Konferencja");
+                    break;
+                default:
+                    break;
+            }
+        }
         model.addAttribute("getAllEvents", getAllEvents);
         return "events_list_page";
     }

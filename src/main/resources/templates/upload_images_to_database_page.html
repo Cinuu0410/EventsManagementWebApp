@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" th:href="@{/css/upload_images_to_database_style.css}">
+    <title>Events App</title>
+</head>
+<body>
+
+<div class="upload-container">
+    <h1>Dodaj zdjęcia do bazy danych</h1>
+    <form action="/admin/add-image" method="POST" enctype="multipart/form-data">
+        <label for="image">Wybierz zdjęcie:</label>
+        <input type="file" id="image" name="image" accept="image/*" required>
+
+        <button type="submit">Dodaj zdjęcie</button>
+    </form>
+    <a href="/main_page" class="admin-btn">Powrót na stronę główną</a>
+</div>
+
+</body>
+</html>

@@ -21,6 +21,14 @@
         <label for="eventDate">Data wydarzenia:</label>
         <input type="datetime-local" id="eventDate" name="eventDate" required>
 
+        <label for="category">Kategoria:</label>
+        <select id="category" name="category" required>
+            <option value="concert">Koncert</option>
+            <option value="workshops">Warsztaty</option>
+            <option value="conference">Konferencja</option>
+        </select>
+
+
         <button type="submit">Dodaj wydarzenie</button>
     </form>
     <a href="/main_page" class="admin-btn">Powrót na stronę główną</a>

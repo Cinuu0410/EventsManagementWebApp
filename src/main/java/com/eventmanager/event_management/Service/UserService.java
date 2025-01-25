@@ -6,6 +6,8 @@ import org.apache.commons.codec.digest.DigestUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class UserService {
 
@@ -54,4 +56,11 @@ public class UserService {
         return userRepository.findByUsername(username);
     }
 
+    public List<User> getModerators() {
+        return userRepository.findByRole("Moderator");
+    }
+
+    public User getUserById(Long userId) {
+        return userRepository.findById(userId).orElse(null);
+    }
 }

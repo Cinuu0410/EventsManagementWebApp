@@ -18,6 +18,7 @@ public class Event {
 
     private String title;
     private String description;
+    private String category;
 
     @Lob
     private byte[] image;

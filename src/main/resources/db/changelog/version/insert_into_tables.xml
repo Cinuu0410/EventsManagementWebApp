@@ -22,10 +22,34 @@
             <column name="role" value="Uzytkownik"/>
         </insert>
         <insert tableName="app_user">
+            <column name="first_name" value = "Krzysztof"/>
+            <column name="last_name" value = "Mazurek"/>
+            <column name="email" value="k.mazurek@gmail.com"/>
+            <column name="username" value="Mazur123"/>
+            <column name="password" value="10a23e7eacabe2317f458fac266a50233d5d02b31244be70477f4d780b7d2255"/> <!-- hasloo -->
+            <column name="role" value="Uzytkownik"/>
+        </insert>
+        <insert tableName="app_user">
+            <column name="first_name" value = "Kamil"/>
+            <column name="last_name" value = "Mincewicz"/>
+            <column name="email" value="k.mincewicz@gmail.com"/>
+            <column name="username" value="Kamilek123"/>
+            <column name="password" value="10a23e7eacabe2317f458fac266a50233d5d02b31244be70477f4d780b7d2255"/> <!-- hasloo -->
+            <column name="role" value="Uzytkownik"/>
+        </insert>
+        <insert tableName="app_user">
             <column name="first_name" value = "Adam"/>
             <column name="last_name" value = "Kozak"/>
             <column name="email" value="a.kozak@gmail.com"/>
             <column name="username" value="Mod"/>
+            <column name="password" value="10a23e7eacabe2317f458fac266a50233d5d02b31244be70477f4d780b7d2255"/> <!-- hasloo -->
+            <column name="role" value="Moderator"/>
+        </insert>
+        <insert tableName="app_user">
+            <column name="first_name" value = "Andrzej"/>
+            <column name="last_name" value = "Rogaczewski"/>
+            <column name="email" value="a.rogaczewski@gmail.com"/>
+            <column name="username" value="Mod2"/>
             <column name="password" value="10a23e7eacabe2317f458fac266a50233d5d02b31244be70477f4d780b7d2255"/> <!-- hasloo -->
             <column name="role" value="Moderator"/>
         </insert>

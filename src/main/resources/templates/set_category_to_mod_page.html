@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Przypisz kategorię moderatorowi</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+<div class="container mt-4">
+    <h2>Przypisz kategorię moderatorowi</h2>
+
+    <!-- Sprawdzenie, czy są dostępni moderatorzy -->
+    <div th:if="${getModerators.isEmpty()}">
+        <p>Brak dostępnych moderatorów.</p>
+    </div>
+    <div th:unless="${getModerators.isEmpty()}">
+        <form action="/admin/set-category-to-mod" method="post">
+            <div class="form-group">
+                <label for="moderator">Wybierz moderatora:</label>
+                <select name="moderatorId" id="moderator" class="form-control" required>
+                    <option value="" disabled selected>Wybierz moderatora</option>
+                    <th:block th:each="moderator : ${getModerators}">
+                        <option th:value="${moderator.id}" th:text="${moderator.firstName + ' ' + moderator.lastName}"></option>
+                    </th:block>
+                </select>
+            </div>
+
+            <div class="form-group mt-3">
+                <label for="category">Wybierz kategorię:</label>
+                <select name="category" id="category" class="form-control" required>
+                    <option value="" disabled selected>Wybierz kategorię</option>
+                    <option value="CONCERT">Koncerty</option>
+                    <option value="WORKSHOP">Warsztaty</option>
+                    <option value="CONFERENCE">Konferencje</option>
+                </select>
+            </div>
+
+            <button type="submit" class="btn btn-primary mt-3">Zapisz</button>
+        </form>
+    </div>
+</div>
+
+<!-- Optional JavaScript; choose one of the two! -->
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
+</body>
+</html>
