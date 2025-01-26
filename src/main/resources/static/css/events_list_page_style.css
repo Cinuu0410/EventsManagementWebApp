@@ -181,6 +181,19 @@ footer {
     height: auto;
 }
 
+/*.event-card {*/
+/*    background-color: rgba(166, 166, 166, 0.29);*/
+/*    border-radius: 8px;*/
+/*    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);*/
+/*    overflow: hidden;*/
+/*    text-align: center;*/
+/*    transition: transform 0.3s ease;*/
+/*    position: relative;*/
+/*    display: flex;*/
+/*    flex-direction: column;*/
+/*    height: auto;*/
+/*}*/
+
 .event-card {
     background-color: rgba(166, 166, 166, 0.29);
     border-radius: 8px;
@@ -191,7 +204,10 @@ footer {
     position: relative;
     display: flex;
     flex-direction: column;
-    height: auto;
+    justify-content: space-between; /* Ustaw równy rozkład */
+    align-items: stretch;
+    height: 480px; /* Dopasuj wysokość kart */
+    padding: 10px;
 }
 
 .event-card:hover {
@@ -204,11 +220,27 @@ footer {
     object-fit: cover;
 }
 
+/*.event-details {*/
+/*    padding: 15px;*/
+/*    word-wrap: break-word;*/
+/*    white-space: normal;*/
+/*    overflow-wrap: break-word;*/
+/*}*/
+
 .event-details {
     padding: 15px;
-    word-wrap: break-word;
-    white-space: normal;
-    overflow-wrap: break-word;
+    flex-grow: 1; /* Dynamicznie wypełnia przestrzeń */
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3; /* Maksymalnie 3 linie tekstu w opisie */
+}
+
+.event-details p:last-child {
+    margin-top: auto; /* Przesuwa kategorię na dół */
+    font-weight: bold;
+    font-size: 14px;
+    color: var(--accent-color);
 }
 
 .event-details h3 {
@@ -223,13 +255,20 @@ footer {
     margin-bottom: 20px;
 }
 
+/*.event-actions {*/
+/*    display: flex;*/
+/*    flex-direction: column;*/
+/*    align-items: center;*/
+/*}*/
+
 .event-actions {
     display: flex;
     flex-direction: column;
     align-items: center;
+    margin-top: 15px;
 }
 
-.ticket-btn, .comments-btn {
+.ticket-btn, .comments-btn,.edit-btn {
     width: 80%;
     padding: 10px;
     font-size: 16px;
@@ -242,7 +281,7 @@ footer {
     transition: background-color 0.3s;
 }
 
-.ticket-btn:hover, .comments-btn:hover {
+.ticket-btn:hover, .comments-btn:hover, .edit-btn:hover {
     background-color: var(--accent-color);
 }
 

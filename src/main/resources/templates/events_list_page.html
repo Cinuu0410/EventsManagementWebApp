@@ -25,6 +25,9 @@
                 <li>
                     <span th:if="${role eq 'Administrator'}"><a href="/admin_panel">Panel administratora</a></span>
                 </li>
+                <li>
+                    <span th:if="${role eq 'Moderator'}"><a href="/mod_panel">Panel moderatora</a></span>
+                </li>
             </ul>
         </nav>
 
@@ -66,6 +69,9 @@
             <div class="event-actions">
                 <button class="ticket-btn">Zamów bilet</button>
                 <a th:href="@{'/events/' + ${event.id} + '/comments'}" class="comments-btn">Pokaż komentarze</a>
+                <span th:if="${role eq 'Moderator'}">
+                    <a th:href="@{'/admin/edit-event/' + ${event.id}}" class="edit-btn">Edytuj</a>
+                </span>
             </div>
         </div>
     </div>

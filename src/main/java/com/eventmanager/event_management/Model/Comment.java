@@ -28,6 +28,9 @@ public class Comment {
 
     private LocalDateTime createdAt;
 
+    @Column(name = "is_approved", nullable = false)
+    private boolean isApproved;
+
     @Setter
     @Getter
     @Transient

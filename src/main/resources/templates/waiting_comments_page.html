@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <title>Events App</title>
+    <link rel="stylesheet" href="/css/waiting_comments_page_style.css">
+</head>
+<body>
+<div class="comments-list">
+    <h2>Komentarze oczekujące na akceptację</h2>
+    <ul>
+        <li th:each="comment : ${comments}">
+            <p>
+                <strong th:text="${comment.user.username}">Użytkownik</strong>:
+                <span th:text="${comment.content}">Treść komentarza</span>
+            </p>
+            <p th:text="${comment.formattedDate}">Data utworzenia</p>
+
+            <!-- Akceptacja komentarza -->
+            <form th:action="@{/admin/comments/accept/{id}(id=${comment.id})}" method="POST">
+                <button type="submit">Akceptuj</button>
+            </form>
+        </li>
+    </ul>
+</div>
+</body>
+</html>

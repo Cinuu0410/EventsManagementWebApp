@@ -1,5 +1,6 @@
 package com.eventmanager.event_management.Controller;
 
+import com.eventmanager.event_management.Model.Event;
 import com.eventmanager.event_management.Model.SliderImage;
 import com.eventmanager.event_management.Model.User;
 import com.eventmanager.event_management.Service.*;
@@ -10,7 +11,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Optional;
 
@@ -81,7 +86,7 @@ public class EventManagementSystemController {
 
         if (sliderImage.isPresent() && sliderImage.get().getImage() != null) {
             return ResponseEntity.ok()
-                    .contentType(MediaType.IMAGE_JPEG) // Domyślnie zakładam format JPEG
+                    .contentType(MediaType.IMAGE_JPEG)
                     .body(sliderImage.get().getImage());
         }
 
@@ -123,7 +128,7 @@ public class EventManagementSystemController {
         return "admin_panel_page";
     }
 
-    @GetMapping("/admin/upload-images")
+    @GetMapping("/admin/create-event-page")
     public String uploadImagesPage(Model model, HttpSession session) {
         User loggedInUser = (User) session.getAttribute("loggedInUser");
 
@@ -209,16 +214,81 @@ public class EventManagementSystemController {
     public String setCategoryToMod(@RequestParam("moderatorId") Long moderatorId,
                                    @RequestParam("category") String category) {
 
-        // Znajdź moderatora
         User moderator = userService.getUserById(moderatorId);
 
         if (moderator != null) {
-            // Przypisz kategorię
             moderatorService.assignCategoryToModerator(moderatorId, category);
             return "redirect:/admin/set-category-to-mod";
         } else {
-            // Jeśli nie znaleziono użytkownika, wyświetl błąd
             return "redirect:/admin/set-category-to-mod?error=true";
+        }
+    }
+
+    @GetMapping("/mod_panel")
+    public String modPanelPage(Model model, HttpSession session) {
+        User loggedInUser = (User) session.getAttribute("loggedInUser");
+
+        if (loggedInUser != null) {
+            Long userId = loggedInUser.getId();
+            String loggedRole = userService.getRole(userId);
+            session.setAttribute("loggedInUser", loggedInUser);
+            session.setAttribute("role", loggedRole);
+            model.addAttribute("loggedInUser", loggedInUser);
+            model.addAttribute("role", loggedRole);
+        }else {
+            return "redirect:/login";
+        }
+        return "mod_panel_page";
+    }
+
+    @GetMapping("/admin/edit-event/{id}")
+    public String editEventsPage(@PathVariable("id") Long eventId, Model model, HttpSession session) {
+        User loggedInUser = (User) session.getAttribute("loggedInUser");
+
+        if (loggedInUser != null) {
+            Long userId = loggedInUser.getId();
+            String loggedRole = userService.getRole(userId);
+            session.setAttribute("loggedInUser", loggedInUser);
+            session.setAttribute("role", loggedRole);
+            model.addAttribute("loggedInUser", loggedInUser);
+            model.addAttribute("role", loggedRole);
+        }else {
+            return "redirect:/login";
+        }
+
+        Optional<Event> event = eventService.findById(eventId);
+        if (event.isPresent()) {
+            Event eventEntity = event.get();
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm");
+            String formattedDate = eventEntity.getEventDate().format(formatter);
+            model.addAttribute("event", eventEntity);
+            model.addAttribute("formattedDate", formattedDate);
+            return "edit_event_page";
+        } else {
+            return "redirect:/mod_panel?error=EventNotFound";
+        }
+    }
+
+    @PostMapping("/admin/edit-event")
+    public String editEvent(
+            @RequestParam("eventId") Long eventId,
+            @RequestParam("title") String title,
+            @RequestParam("description") String description,
+            @RequestParam("category") String category,
+            @RequestParam(value = "image", required = false) MultipartFile image,
+            @RequestParam("eventDate") String eventDate) {
+
+        try {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm");
+            LocalDateTime eventDateTime = LocalDateTime.parse(eventDate, formatter);
+
+            // Edytowanie wydarzenia
+            adminService.editEvent(eventId, title, description, category, image, eventDateTime);
+
+            return "redirect:/mod_panel";
+        } catch (IOException e) {
+            e.printStackTrace();
+            return "error_page";
         }
     }
 }

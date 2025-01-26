@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" th:href="@{/css/create_new_event_page_style.css}">
+    <title>Events App</title>
+</head>
+<body>
+<div class="upload-container">
+    <h1>Edytuj wydarzenie</h1>
+    <form action="/admin/edit-event" method="POST" enctype="multipart/form-data">
+        <!-- Ukryte pole z ID wydarzenia -->
+        <input type="hidden" id="eventId" name="eventId" th:value="${event.id}" />
+
+        <label for="title">Tytuł wydarzenia:</label>
+        <input type="text" id="title" name="title" required maxlength="50" th:value="${event.title}">
+
+        <label for="description">Opis wydarzenia:</label>
+        <textarea id="description" name="description" required maxlength="102" th:text="${event.description}"></textarea>
+
+        <label for="image">Zmień zdjęcie (opcjonalne):</label>
+        <input type="file" id="image" name="image" accept="image/*">
+
+        <label for="eventDate">Data wydarzenia:</label>
+        <input type="datetime-local" id="eventDate" name="eventDate" th:value="${formattedDate}" />
+
+        <label for="category">Kategoria:</label>
+        <select id="category" name="category" required>
+            <option value="concert" th:selected="${event.category == 'concert'}">Koncert</option>
+            <option value="workshops" th:selected="${event.category == 'workshops'}">Warsztaty</option>
+            <option value="conference" th:selected="${event.category == 'conference'}">Konferencja</option>
+        </select>
+
+        <button type="submit">Zapisz zmiany</button>
+    </form>
+    <a href="/main_page" class="admin-btn">Powrót na stronę główną</a>
+</div>
+</body>
+</html>

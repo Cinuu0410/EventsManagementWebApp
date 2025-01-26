@@ -40,7 +40,7 @@ public class SliderImageService {
         List<SliderImage> allImages = sliderImageRepository.findAll();
         for (SliderImage image : allImages) {
             boolean isSelected = selectedIds.contains(image.getId());
-            image.setInSlider(isSelected);  // Ustawienie, czy zdjęcie jest w sliderze
+            image.setInSlider(isSelected);
         }
         sliderImageRepository.saveAll(allImages);
     }

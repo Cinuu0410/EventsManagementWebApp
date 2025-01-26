@@ -148,7 +148,7 @@ public class EventController {
             return "redirect:/events";
         }
 
-        List<Comment> comments = commentService.getCommentsByEventId(eventId);
+        List<Comment> comments = commentService.getAcceptedCommentsByEventId(eventId);
 
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
         comments.forEach(comment -> comment.setFormattedDate(comment.getCreatedAt().format(formatter)));
@@ -168,28 +168,52 @@ public class EventController {
                              HttpSession session) {
         User loggedInUser = (User) session.getAttribute("loggedInUser");
 
-        // Sprawdzanie, czy użytkownik jest zalogowany
         if (loggedInUser == null) {
             return "redirect:/login";
         }
 
-        // Sprawdzanie, czy wydarzenie istnieje
         Optional<Event> event = eventService.findById(eventId);
         if (event.isEmpty()) {
             return "redirect:/events";
         }
 
-        // Tworzenie nowego komentarza
         Comment newComment = new Comment();
-        newComment.setEvent(event.get());  // Ustaw ID eventu
-        newComment.setUser(loggedInUser);  // Ustaw ID użytkownika
-        newComment.setContent(commentText);  // Ustaw tekst komentarza
-        newComment.setCreatedAt(LocalDateTime.now());  // Ustaw czas dodania komentarza
-
-        // Zapisz komentarz w bazie
+        newComment.setEvent(event.get());
+        newComment.setUser(loggedInUser);
+        newComment.setContent(commentText);
+        newComment.setCreatedAt(LocalDateTime.now());
+        String role = loggedInUser.getRole();
+        newComment.setApproved("Administrator".equalsIgnoreCase(role) || "Moderator".equalsIgnoreCase(role));
         commentService.save(newComment);
 
-        // Przekierowanie po zapisaniu komentarza
         return "redirect:/events/" + eventId + "/comments";
+    }
+
+    @GetMapping("/admin/approve-comments")
+    public String getPendingComments(Model model) {
+        // Pobierz komentarze oczekujące na akceptację (isApproved == false)
+        List<Comment> pendingComments = commentService.getPendingComments();
+
+        // Dodaj komentarze do modelu
+        model.addAttribute("comments", pendingComments);
+
+        return "waiting_comments_page";  // Strona oczekujących komentarzy
+    }
+
+    @PostMapping("/admin/comments/accept/{id}")
+    public String acceptComment(@PathVariable("id") Long commentId) {
+        // Pobierz komentarz po ID
+        Optional<Comment> commentOptional = commentService.getById(commentId);
+
+        if (commentOptional.isPresent()) {
+            Comment comment = commentOptional.get();
+            // Ustaw isApproved na true
+            comment.setApproved(true);
+            // Zapisz zaktualizowany komentarz
+            commentService.save(comment);
+        }
+
+        // Po akceptacji przekieruj na stronę z oczekującymi komentarzami
+        return "redirect:/admin/comments/approve-comments";
     }
 }

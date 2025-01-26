@@ -100,13 +100,23 @@
             <column name="user_id" value="2"/>
             <column name="event_id" value="1"/>
             <column name="created_at" value="2025-01-13 20:00"/>
+            <column name="is_approved" value="true"/>
         </insert>
         <insert tableName="comment">
             <column name="id" value = "2"/>
-            <column name="content" value = "test"/>
+            <column name="content" value = "Kozak wydarzenie"/>
             <column name="user_id" value="1"/>
             <column name="event_id" value="1"/>
             <column name="created_at" value="2025-01-13 21:00"/>
+            <column name="is_approved" value="true"/>
+        </insert>
+        <insert tableName="comment">
+            <column name="id" value = "3"/>
+            <column name="content" value = "Polecam"/>
+            <column name="user_id" value="3"/>
+            <column name="event_id" value="1"/>
+            <column name="created_at" value="2025-01-26 19:00"/>
+            <column name="is_approved" value="false"/>
         </insert>
     </changeSet>
 </databaseChangeLog>

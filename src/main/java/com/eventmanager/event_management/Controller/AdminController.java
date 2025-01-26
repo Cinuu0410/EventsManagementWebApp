@@ -7,8 +7,6 @@ import com.eventmanager.event_management.Service.UserService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -36,7 +34,8 @@ public class AdminController {
             @RequestParam("description") String description,
             @RequestParam("category") String category,
             @RequestParam("image") MultipartFile image,
-            @RequestParam("eventDate") String eventDate) {
+            @RequestParam("eventDate") String eventDate,
+            HttpSession session) {
 
         try {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm");
@@ -44,7 +43,17 @@ public class AdminController {
 
             adminService.saveEvent(title, description, category, image, eventDateTime);
 
-            return "redirect:/admin_panel";
+            User loggedInUser = (User) session.getAttribute("loggedInUser");
+
+            if (loggedInUser != null) {
+                String role = loggedInUser.getRole();
+                if ("Administrator".equalsIgnoreCase(role)) {
+                    return "redirect:/admin_panel";
+                } else if ("Moderator".equalsIgnoreCase(role)) {
+                    return "redirect:/mod_panel";
+                }
+            }
+            return "redirect:/";
         } catch (IOException e) {
             e.printStackTrace();
             return "error_page";
@@ -52,15 +61,26 @@ public class AdminController {
     }
 
     @PostMapping("/add-image")
-    public String addImage(@RequestParam("image") MultipartFile image){
+    public String addImage(@RequestParam("image") MultipartFile image, HttpSession session){
         try {
             sliderImageService.saveImage(image);
 
-            return "redirect:/admin_panel";
+            User loggedInUser = (User) session.getAttribute("loggedInUser");
+
+            if (loggedInUser != null) {
+                String role = loggedInUser.getRole();
+                if ("Administrator".equalsIgnoreCase(role)) {
+                    return "redirect:/admin_panel";
+                } else if ("Moderator".equalsIgnoreCase(role)) {
+                    return "redirect:/mod_panel";
+                }
+            }
+            return "redirect:/";
         } catch (IOException e) {
             e.printStackTrace();
             return "error_page";
         }
     }
+
 
 }

@@ -8,19 +8,15 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class ModeratorService {
+
     @Autowired
     private UserRepository userRepository;
 
     public void assignCategoryToModerator(Long moderatorId, String category) {
-        // Znajdź moderatora
         User moderator = userRepository.findById(moderatorId).orElseThrow(() -> new IllegalArgumentException("User not found"));
+        EventCategory selectedCategory = EventCategory.valueOf(category.toUpperCase());
+        moderator.setAssignedCategory(selectedCategory.name());
 
-        // Przypisz kategorię z Enum do moderatora
-        EventCategory selectedCategory = EventCategory.valueOf(category.toUpperCase());  // Pobieramy wartość z Enum
-
-        // Zapisz kategorię przypisaną do moderatora
-        moderator.setAssignedCategory(selectedCategory.name());  // Możesz zapisać jako String, jeśli chcesz
-
-        userRepository.save(moderator);  // Zapisz zmiany w bazie
+        userRepository.save(moderator);
     }
 }

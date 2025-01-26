@@ -4,7 +4,7 @@
                    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
                    https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
 
-<!--    Tabela app_user    -->
+    <!--    Tabela app_user    -->
     <changeSet id="app-user-table-create" author="admin">
         <createTable tableName="app_user">
             <column name="id" type="BIGINT" autoIncrement="true">
@@ -61,6 +61,7 @@
         </createTable>
     </changeSet>
 
+    <!--    Tabela comment    -->
     <changeSet id="comments-table-create" author="admin">
         <createTable tableName="comment">
             <column name="id" type="BIGINT" autoIncrement="true">
@@ -76,6 +77,9 @@
                 <constraints nullable="false" foreignKeyName="fk_event_comments" references="event(id)"/>
             </column>
             <column name="created_at" type="TIMESTAMP">
+                <constraints nullable="false"/>
+            </column>
+            <column name="is_approved" type="boolean">
                 <constraints nullable="false"/>
             </column>
         </createTable>

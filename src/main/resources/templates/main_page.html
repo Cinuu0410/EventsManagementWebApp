@@ -25,6 +25,9 @@
                 <li>
                     <span th:if="${role eq 'Administrator'}"><a href="/admin_panel">Panel administratora</a></span>
                 </li>
+                <li>
+                    <span th:if="${role eq 'Moderator'}"><a href="/mod_panel">Panel moderatora</a></span>
+                </li>
             </ul>
         </nav>
 
