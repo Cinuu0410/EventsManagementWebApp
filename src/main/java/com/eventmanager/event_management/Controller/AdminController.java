@@ -35,13 +35,14 @@ public class AdminController {
             @RequestParam("category") String category,
             @RequestParam("image") MultipartFile image,
             @RequestParam("eventDate") String eventDate,
+            @RequestParam("price") double price,
             HttpSession session) {
 
         try {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm");
             LocalDateTime eventDateTime = LocalDateTime.parse(eventDate, formatter);
 
-            adminService.saveEvent(title, description, category, image, eventDateTime);
+            adminService.saveEvent(title, description, category, image, eventDateTime, price);
 
             User loggedInUser = (User) session.getAttribute("loggedInUser");
 

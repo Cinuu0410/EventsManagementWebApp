@@ -38,6 +38,9 @@
         <div class="auth-buttons">
             <div class="auth-buttons">
                 <span th:if="${loggedInUser}">
+                    <button type="button" class="btn btn-secondary" onclick="redirectToCart()">Koszyk
+                         <span th:text="${totalAmount}">0</span> PLN
+                    </button>
                     <button type="button" class="btn btn-secondary logout-button" onclick="logout()">Wyloguj się</button>
                 </span>
             </div>
@@ -67,7 +70,7 @@
             </div>
 
             <div class="event-actions">
-                <button class="ticket-btn">Zamów bilet</button>
+                <a th:href="@{'/events/' + ${event.id} + '/order'}" class="ticket-btn">Zamów bilet</a>
                 <a th:href="@{'/events/' + ${event.id} + '/comments'}" class="comments-btn">Pokaż komentarze</a>
                 <span th:if="${role eq 'Moderator'}">
                     <a th:href="@{'/admin/edit-event/' + ${event.id}}" class="edit-btn">Edytuj</a>
@@ -91,6 +94,9 @@
     }
     function redirectToRegister() {
         window.location.href = "/register";
+    }
+    function redirectToCart(){
+        window.location.href = "/cart"
     }
     function logout() {
         window.location.href = "/logout";

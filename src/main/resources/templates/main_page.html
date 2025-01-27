@@ -38,6 +38,9 @@
         <div class="auth-buttons">
             <div class="auth-buttons">
                 <span th:if="${loggedInUser}">
+                    <button type="button" class="btn btn-secondary" onclick="redirectToCart()">Koszyk
+                         <span th:text="${totalAmount}">0</span> PLN
+                    </button>
                     <button type="button" class="btn btn-secondary logout-button" onclick="logout()">Wyloguj się</button>
                 </span>
             </div>
@@ -109,6 +112,9 @@
     }
     function redirectToEventsList(){
         window.location.href = "/eventsList"
+    }
+    function redirectToCart(){
+        window.location.href = "/cart"
     }
     function logout() {
         window.location.href = "/logout";

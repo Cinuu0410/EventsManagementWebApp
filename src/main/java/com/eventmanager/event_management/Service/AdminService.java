@@ -16,7 +16,7 @@ public class AdminService {
     @Autowired
     private EventRepository eventRepository;
 
-    public void saveEvent(String title, String description, String category, MultipartFile image, LocalDateTime eventDate) throws IOException {
+    public void saveEvent(String title, String description, String category, MultipartFile image, LocalDateTime eventDate, Double price) throws IOException {
         byte[] imageBytes = image.getBytes();
 
         Event event = new Event();
@@ -26,13 +26,14 @@ public class AdminService {
         event.setImage(imageBytes);
         event.setEventDate(eventDate);
         event.setCreatedAt(LocalDateTime.now());
+        event.setPrice(price);
 
         eventRepository.save(event);
     }
 
 
     public void editEvent(Long eventId, String title, String description, String category,
-                          MultipartFile image, LocalDateTime eventDate) throws IOException {
+                          MultipartFile image, LocalDateTime eventDate, double price) throws IOException {
         Optional<Event> optionalEvent = eventRepository.findById(eventId);
 
         if (optionalEvent.isPresent()) {
@@ -41,6 +42,7 @@ public class AdminService {
             event.setDescription(description);
             event.setCategory(category);
             event.setEventDate(eventDate);
+            event.setPrice(price);
 
             // Jeśli przesłano nowe zdjęcie
             if (image != null && !image.isEmpty()) {

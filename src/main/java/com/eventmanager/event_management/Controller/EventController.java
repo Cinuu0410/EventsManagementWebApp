@@ -1,5 +1,6 @@
 package com.eventmanager.event_management.Controller;
 
+import com.eventmanager.event_management.Model.CartItem;
 import com.eventmanager.event_management.Model.Comment;
 import com.eventmanager.event_management.Model.Event;
 import com.eventmanager.event_management.Model.User;
@@ -7,8 +8,6 @@ import com.eventmanager.event_management.Service.CommentService;
 import com.eventmanager.event_management.Service.EventService;
 import com.eventmanager.event_management.Service.UserService;
 import jakarta.servlet.http.HttpSession;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -65,6 +64,7 @@ public class EventController {
             }
         }
         model.addAttribute("getAllEvents", getAllEvents);
+        addCartTotalToModel(session, model);
         return "events_list_page";
     }
 
@@ -81,9 +81,9 @@ public class EventController {
         } else if (eventId == 3) {
             return getLocalImage("event3.jpg");
         } else if (eventId == 4) {
-            return getLocalImage("event4.jpg");
+            return getLocalImage("event4.png");
         } else if (eventId == 5) {
-            return getLocalImage("event5.jpg");
+            return getLocalImage("event5.gif");
         }
 
         if (event.isPresent() && event.get().getImage() != null) {
@@ -215,5 +215,65 @@ public class EventController {
 
         // Po akceptacji przekieruj na stronę z oczekującymi komentarzami
         return "redirect:/admin/comments/approve-comments";
+    }
+
+    @GetMapping("/events/{id}/order")
+    public String orderTicketPage(@PathVariable Long id, Model model, HttpSession session) {
+
+        User loggedInUser = (User) session.getAttribute("loggedInUser");
+
+        if (loggedInUser != null) {
+            Long userId = loggedInUser.getId();
+            String loggedRole = userService.getRole(userId);
+            session.setAttribute("loggedInUser", loggedInUser);
+            session.setAttribute("role", loggedRole);
+            model.addAttribute("loggedInUser", loggedInUser);
+            model.addAttribute("role", loggedRole);
+        }else {
+            return "redirect:/login";
+        }
+
+        List<Event> getAllEvents = eventService.getAllEvents();
+        for (Event event : getAllEvents) {
+            switch (event.getCategory()) {
+                case "concert":
+                    event.setCategory("Koncert");
+                    break;
+                case "workshops":
+                    event.setCategory("Warsztaty");
+                    break;
+                case "conference":
+                    event.setCategory("Konferencja");
+                    break;
+                default:
+                    break;
+            }
+        }
+        model.addAttribute("getAllEvents", getAllEvents);
+
+        Event event = eventService.findById(id).orElseThrow(() -> new IllegalArgumentException("Nie znaleziono wydarzenia o ID: " + id));
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d MMMM yyyy 'o' HH:mm");
+        String formattedDate = event.getEventDate().format(formatter);
+
+        addCartTotalToModel(session, model);
+
+        model.addAttribute("event", event);
+        model.addAttribute("formattedDate", formattedDate);
+        model.addAttribute("quantity", 1);
+        return "order_page";
+    }
+
+    protected void addCartTotalToModel(HttpSession session, Model model) {
+        @SuppressWarnings("unchecked")
+        List<CartItem> cart = (List<CartItem>) session.getAttribute("cart");
+        double totalAmount = 0.0;
+
+        if (cart != null) {
+            for (CartItem item : cart) {
+                totalAmount += item.getTotalPrice();
+            }
+        }
+        model.addAttribute("totalAmount", totalAmount);
     }
 }

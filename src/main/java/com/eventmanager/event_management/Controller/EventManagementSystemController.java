@@ -1,5 +1,6 @@
 package com.eventmanager.event_management.Controller;
 
+import com.eventmanager.event_management.Model.CartItem;
 import com.eventmanager.event_management.Model.Event;
 import com.eventmanager.event_management.Model.SliderImage;
 import com.eventmanager.event_management.Model.User;
@@ -46,6 +47,9 @@ public class EventManagementSystemController {
             model.addAttribute("loggedInUser", loggedInUser);
             model.addAttribute("role", loggedRole);
         }
+
+        addCartTotalToModel(session, model);
+
         return "main_page";
     }
 
@@ -61,6 +65,8 @@ public class EventManagementSystemController {
             model.addAttribute("loggedInUser", loggedInUser);
             model.addAttribute("role", loggedRole);
         }
+        addCartTotalToModel(session, model);
+
         return "redirect:/events";
     }
 
@@ -105,9 +111,9 @@ public class EventManagementSystemController {
             model.addAttribute("loggedInUser", loggedInUser);
             model.addAttribute("role", loggedRole);
         }
-        // Pobierz zdjęcia, które mają ustawiony inSlider na true
         List<SliderImage> getSliderImages = sliderImageService.getSliderImages();
         model.addAttribute("getSliderImages", getSliderImages);
+        addCartTotalToModel(session, model);
         return "photo_gallery_page";
     }
 
@@ -276,19 +282,33 @@ public class EventManagementSystemController {
             @RequestParam("description") String description,
             @RequestParam("category") String category,
             @RequestParam(value = "image", required = false) MultipartFile image,
-            @RequestParam("eventDate") String eventDate) {
+            @RequestParam("eventDate") String eventDate,
+            @RequestParam("price") double price) {
 
         try {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm");
             LocalDateTime eventDateTime = LocalDateTime.parse(eventDate, formatter);
 
             // Edytowanie wydarzenia
-            adminService.editEvent(eventId, title, description, category, image, eventDateTime);
+            adminService.editEvent(eventId, title, description, category, image, eventDateTime, price);
 
             return "redirect:/mod_panel";
         } catch (IOException e) {
             e.printStackTrace();
             return "error_page";
         }
+    }
+
+    protected void addCartTotalToModel(HttpSession session, Model model) {
+        @SuppressWarnings("unchecked")
+        List<CartItem> cart = (List<CartItem>) session.getAttribute("cart");
+        double totalAmount = 0.0;
+
+        if (cart != null) {
+            for (CartItem item : cart) {
+                totalAmount += item.getTotalPrice();
+            }
+        }
+        model.addAttribute("totalAmount", totalAmount);
     }
 }
