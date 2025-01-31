@@ -16,6 +16,9 @@
             </button>
             <ul>
                 <li><a href="/main_page">Strona główna</a></li>
+                <span th:if="${loggedInUser}">
+                    <li><a href="/my_orders">Moje zamówienia</a></li>
+                </span>
                 <li><a href="/eventsList">Wydarzenia</a></li>
                 <li><a href="/photo_gallery">Galeria</a></li>
                 <li><a href="/contact">Kontakt</a></li>
@@ -55,7 +58,7 @@
     <p th:text="${formattedDate}">Data wydarzenia</p>
     <p th:text="${event.description}">Opis wydarzenia</p>
     <p>Kategoria: <span th:text="${event.category}">Kategoria</span></p>
-    <p>Cena: <span th:text="${event.price}">Cena</span> PLN</p>
+    <p>Cena: <span th:text="${event.formattedPrice}">Cena</span> PLN</p>
 
     <form th:action="@{/cart/add}" method="post">
         <input type="hidden" name="eventId" th:value="${event.id}" />

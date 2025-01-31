@@ -44,10 +44,9 @@ public class AdminService {
             event.setEventDate(eventDate);
             event.setPrice(price);
 
-            // Jeśli przesłano nowe zdjęcie
             if (image != null && !image.isEmpty()) {
                 byte[] imageData = image.getBytes();
-                event.setImage(imageData); // Zakładam, że `Event` ma pole `image` typu byte[]
+                event.setImage(imageData);
             }
 
             eventRepository.save(event);

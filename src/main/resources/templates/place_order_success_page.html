@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="pl" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Events App</title>
+    <link rel="stylesheet" th:href="@{/css/alert_page_style.css}">
+    <script>
+        setTimeout(function() {
+            window.location.href = "/my_orders";
+        }, 3000);
+    </script>
+</head>
+<body>
+<div class="alert-box">
+    <div class="alert success" th:if="${successMessage}">
+        <p th:text="${successMessage}"></p>
+    </div>
+</div>
+</body>
+</html>

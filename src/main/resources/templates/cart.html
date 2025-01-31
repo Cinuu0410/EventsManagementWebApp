@@ -19,6 +19,9 @@
             </button>
             <ul>
                 <li><a href="/main_page">Strona główna</a></li>
+                <span th:if="${loggedInUser}">
+                    <li><a href="/my_orders">Moje zamówienia</a></li>
+                </span>
                 <li><a href="/eventsList">Wydarzenia</a></li>
                 <li><a href="/photo_gallery">Galeria</a></li>
                 <li><a href="/contact">Kontakt</a></li>
@@ -56,38 +59,65 @@
     <p>Twój koszyk jest pusty!</p>
 </div>
 
-<div th:if="${cart != null && !cart.isEmpty()}" class="cart-shipping-container">
-    <div class="cart-items">
-        <ul class="cart-list">
-            <li th:each="item : ${cart}" class="cart-item">
-                <p class="event-name" th:text="${item.eventName}">Nazwa wydarzenia</p>
-                <p class="item-quantity">Ilość: <span th:text="${item.quantity}">1</span></p>
-                <p class="item-price">Cena: <span th:text="${item.price}">100</span> PLN</p>
-                <p class="item-total">Łącznie: <span th:text="${item.getTotalPrice()}">100</span> PLN</p>
-            </li>
-        </ul>
+<form th:if="${cart != null && !cart.isEmpty()}" action="/placeOrder"  method="post" class="cart-form">
+    <ul class="cart-list">
+        <li th:each="item : ${cart}" class="cart-item">
+            <input type="hidden" name="eventId" th:value="${item.eventId}" />
+            <p class="event-name" th:text="${item.eventName}">Nazwa wydarzenia</p>
+            <p class="item-quantity">
+                Ilość:
+                <input type="number" name="quantity" th:value="${item.quantity}" min="1" required class="quantity-input">
+            </p>
+            <p class="item-price">Cena: <span th:text="${item.formattedPrice}">100</span> PLN</p>
+            <p class="item-total">Łącznie: <span th:text="${item.getFormattedTotalPrice()}">100</span> PLN</p>
+        </li>
+    </ul>
         <div class="cart-summary">
             <p><strong>Całkowita kwota: <span th:text="${totalAmount}">100</span> PLN</strong></p>
         </div>
         <div class="order-button-container">
-            <a href="/placeOrder" class="btn btn-primary">Złóż zamówienie</a>
+            <button type="submit" class="btn btn-primary">Złóż zamówienie</button>
         </div>
-    </div>
-
-    <div class="shipping-address">
+</form>
+    <div th:if="${cart != null && !cart.isEmpty()}" class="shipping-address">
         <h3>Adres wysyłki</h3>
-        <p>Imię: <span th:text="${loggedInUser.firstName}">Jan</span></p>
-        <p>Nazwisko: <span th:text="${loggedInUser.lastName}">Kowalski</span></p>
-        <p>Telefon: <span th:text="${loggedInUser.phoneNumber}">123456789</span></p>
-        <p>Email: <span th:text="${loggedInUser.email}">jan.kowalski@email.com</span></p>
+        <p><strong>Imię: </strong><span th:text="${loggedInUser.firstName}">Jan</span></p>
+        <p><strong>Nazwisko: </strong><span th:text="${loggedInUser.lastName}">Kowalski</span></p>
+        <p><strong>Telefon: </strong><span th:text="${loggedInUser.phoneNumber}">123456789</span></p>
+        <p><strong>Email: </strong><span th:text="${loggedInUser.email}">jan.kowalski@email.com</span></p>
     </div>
-</div>
 <a href="/events" class="back-to-events">Powrót do wydarzeń</a>
 
 <footer>
     <p>2025 Events App &copy;</p>
 </footer>
+<script>
+    document.querySelectorAll('.quantity-input').forEach(input => {
+        input.addEventListener('input', function() {
+            const itemRow = this.closest('.cart-item');
+            const priceElement = itemRow.querySelector('.item-price span');
+            const totalElement = itemRow.querySelector('.item-total span');
 
+            const price = parseFloat(priceElement.textContent);
+            const quantity = parseInt(this.value, 10);
+
+            const totalPrice = price * quantity;
+            totalElement.textContent = totalPrice.toFixed(2);
+
+            updateTotalAmount();
+        });
+    });
+
+    function updateTotalAmount() {
+        let totalAmount = 0;
+        document.querySelectorAll('.item-total span').forEach(totalElement => {
+            totalAmount += parseFloat(totalElement.textContent);
+        });
+
+        document.querySelector('.cart-summary strong span').textContent = totalAmount.toFixed(2);
+        document.querySelector('.auth-buttons .btn-secondary span').textContent = totalAmount.toFixed(2);
+    }
+</script>
 <script>
     function toggleMenu() {
         var sideMenu = document.querySelector('.side-menu');

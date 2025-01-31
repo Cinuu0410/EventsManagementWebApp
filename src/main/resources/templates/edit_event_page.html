@@ -9,7 +9,6 @@
 <div class="upload-container">
     <h1>Edytuj wydarzenie</h1>
     <form action="/admin/edit-event" method="POST" enctype="multipart/form-data">
-        <!-- Ukryte pole z ID wydarzenia -->
         <input type="hidden" id="eventId" name="eventId" th:value="${event.id}" />
 
         <label for="title">Tytuł wydarzenia:</label>

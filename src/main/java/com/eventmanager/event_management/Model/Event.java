@@ -30,4 +30,7 @@ public class Event {
     private List<Comment> comments = new ArrayList<>();
 
     private double price;
+
+    @Transient
+    private String formattedPrice;
 }

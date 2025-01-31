@@ -16,7 +16,6 @@
             </p>
             <p th:text="${comment.formattedDate}">Data utworzenia</p>
 
-            <!-- Akceptacja komentarza -->
             <form th:action="@{/admin/comments/accept/{id}(id=${comment.id})}" method="POST">
                 <button type="submit">Akceptuj</button>
             </form>

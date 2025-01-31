@@ -6,7 +6,6 @@ import com.eventmanager.event_management.Model.User;
 import com.eventmanager.event_management.Service.EventService;
 import com.eventmanager.event_management.Service.UserService;
 import jakarta.servlet.http.HttpSession;
-import org.apache.tomcat.util.net.openssl.ciphers.Authentication;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,7 +13,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import java.security.Principal;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -78,6 +77,15 @@ public class CartController {
         @SuppressWarnings("unchecked")
         List<CartItem> cart = (List<CartItem>) session.getAttribute("cart");
 
+        DecimalFormat df = new DecimalFormat("0.00");
+
+        for (CartItem item : cart) {
+            String formattedPrice = df.format(item.getPrice());
+            item.setFormattedPrice(formattedPrice);
+            String formattedTotalPrice = df.format(item.getTotalPrice());
+            item.setFormattedTotalPrice(formattedTotalPrice);
+        }
+
         addCartTotalToModel(session, model);
         model.addAttribute("cart", cart);
 
@@ -95,6 +103,9 @@ public class CartController {
                 totalAmount += item.getTotalPrice();
             }
         }
-        model.addAttribute("totalAmount", totalAmount);
+        DecimalFormat df = new DecimalFormat("0.00");
+        String formattedTotalAmount = df.format(totalAmount);
+
+        model.addAttribute("totalAmount", formattedTotalAmount);
     }
 }

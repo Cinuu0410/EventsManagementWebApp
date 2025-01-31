@@ -47,6 +47,7 @@
             <column name="email" value="a.kozak@gmail.com"/>
             <column name="phone_number" value="122333123"/>
             <column name="username" value="Mod"/>
+            <column name="assigned_category" value="concert"/>
             <column name="password" value="10a23e7eacabe2317f458fac266a50233d5d02b31244be70477f4d780b7d2255"/> <!-- hasloo -->
             <column name="role" value="Moderator"/>
         </insert>
@@ -106,7 +107,6 @@
 
     <changeSet id="comment-inserts" author="admin">
         <insert tableName="comment">
-            <column name="id" value = "1"/>
             <column name="content" value = "Pewnie znowu będzie ogromna kolejka..."/>
             <column name="user_id" value="2"/>
             <column name="event_id" value="1"/>
@@ -114,7 +114,6 @@
             <column name="is_approved" value="true"/>
         </insert>
         <insert tableName="comment">
-            <column name="id" value = "2"/>
             <column name="content" value = "Kozak wydarzenie"/>
             <column name="user_id" value="1"/>
             <column name="event_id" value="1"/>
@@ -122,12 +121,32 @@
             <column name="is_approved" value="true"/>
         </insert>
         <insert tableName="comment">
-            <column name="id" value = "3"/>
             <column name="content" value = "Polecam"/>
             <column name="user_id" value="3"/>
             <column name="event_id" value="1"/>
             <column name="created_at" value="2025-01-26 19:00"/>
             <column name="is_approved" value="false"/>
+        </insert>
+    </changeSet>
+
+    <changeSet id="orders-inserts" author="admin">
+        <insert tableName="orders">
+            <column name="user_id" value="2"/>
+            <column name="event_id" value="3"/>
+            <column name="ticket_quantity" value="2"/>
+            <column name="status" value="Dostarczone"/>
+        </insert>
+        <insert tableName="orders">
+            <column name="user_id" value="3"/>
+            <column name="event_id" value="4"/>
+            <column name="ticket_quantity" value="1"/>
+            <column name="status" value="Zlozone"/>
+        </insert>
+        <insert tableName="orders">
+            <column name="user_id" value="2"/>
+            <column name="event_id" value="5"/>
+            <column name="ticket_quantity" value="1"/>
+            <column name="status" value="Zlozone"/>
         </insert>
     </changeSet>
 </databaseChangeLog>

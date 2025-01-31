@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.*;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.text.DecimalFormat;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
@@ -191,29 +192,22 @@ public class EventController {
 
     @GetMapping("/admin/approve-comments")
     public String getPendingComments(Model model) {
-        // Pobierz komentarze oczekujące na akceptację (isApproved == false)
         List<Comment> pendingComments = commentService.getPendingComments();
-
-        // Dodaj komentarze do modelu
         model.addAttribute("comments", pendingComments);
 
-        return "waiting_comments_page";  // Strona oczekujących komentarzy
+        return "waiting_comments_page";
     }
 
     @PostMapping("/admin/comments/accept/{id}")
     public String acceptComment(@PathVariable("id") Long commentId) {
-        // Pobierz komentarz po ID
         Optional<Comment> commentOptional = commentService.getById(commentId);
 
         if (commentOptional.isPresent()) {
             Comment comment = commentOptional.get();
-            // Ustaw isApproved na true
             comment.setApproved(true);
-            // Zapisz zaktualizowany komentarz
             commentService.save(comment);
         }
 
-        // Po akceptacji przekieruj na stronę z oczekującymi komentarzami
         return "redirect:/admin/comments/approve-comments";
     }
 
@@ -233,6 +227,8 @@ public class EventController {
             return "redirect:/login";
         }
 
+        DecimalFormat df = new DecimalFormat("0.00");
+
         List<Event> getAllEvents = eventService.getAllEvents();
         for (Event event : getAllEvents) {
             switch (event.getCategory()) {
@@ -248,6 +244,8 @@ public class EventController {
                 default:
                     break;
             }
+            String formattedPrice = df.format(event.getPrice());
+            event.setFormattedPrice(formattedPrice);
         }
         model.addAttribute("getAllEvents", getAllEvents);
 
@@ -261,6 +259,9 @@ public class EventController {
         model.addAttribute("event", event);
         model.addAttribute("formattedDate", formattedDate);
         model.addAttribute("quantity", 1);
+
+        String formattedEventPrice = df.format(event.getPrice());
+        model.addAttribute("formattedEventPrice", formattedEventPrice);
         return "order_page";
     }
 
@@ -274,6 +275,10 @@ public class EventController {
                 totalAmount += item.getTotalPrice();
             }
         }
-        model.addAttribute("totalAmount", totalAmount);
+
+        DecimalFormat df = new DecimalFormat("0.00");
+        String formattedTotalAmount = df.format(totalAmount);
+
+        model.addAttribute("totalAmount", formattedTotalAmount);
     }
 }

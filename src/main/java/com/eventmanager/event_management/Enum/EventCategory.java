@@ -1,9 +1,9 @@
 package com.eventmanager.event_management.Enum;
 
 public enum EventCategory {
-    CONCERT("Koncert"),
-    WORKSHOP("Warsztaty"),
-    CONFERENCE("Konferencja");
+    concert("Koncert"),
+    workshops("Warsztaty"),
+    conference("Konferencja");
 
     private final String displayName;
 

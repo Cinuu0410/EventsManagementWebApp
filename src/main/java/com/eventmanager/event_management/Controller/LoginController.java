@@ -51,6 +51,7 @@ public class LoginController {
         if (loggedInUser != null) {
             session.removeAttribute("loggedInUser");
         }
+        session.invalidate();
         redirectAttributes.addFlashAttribute("successMessage", "Wylogowano pomyślnie");
         return "redirect:/logout/success";
     }
