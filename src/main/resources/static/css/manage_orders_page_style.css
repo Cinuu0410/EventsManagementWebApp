@@ -165,146 +165,18 @@ footer {
     width: 100%;
 }
 
-.big-container{
-    background-color: white;
-}
-
-.events-container {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 20px;
-    padding: 20px;
-    margin: 20px auto;
-    width: 100%;
-    max-width: 1200px;
-    background-color: #ffffff;
-    height: auto;
-}
-
-.event-card {
-    background-color: rgba(166, 166, 166, 0.29);
-    border-radius: 8px;
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-    overflow: hidden;
-    text-align: center;
-    transition: transform 0.3s ease;
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: stretch;
-    height: 480px;
-    padding: 10px;
-}
-
-.event-card:hover {
-    transform: scale(1.05);
-}
-
-.event-image {
-    width: 100%;
-    height: 200px;
-    object-fit: cover;
-}
-
-.event-details {
-    padding: 15px;
-    flex-grow: 1;
-    overflow: hidden;
-    display: -webkit-box;
-    -webkit-box-orient: vertical;
-    -webkit-line-clamp: 3;
-}
-
-.event-details p:last-child {
-    margin-top: auto;
-    font-weight: bold;
-    font-size: 14px;
-    color: var(--accent-color);
-}
-
-.event-details h3 {
-    color: var(--primary-color);
-    font-size: 20px;
-    margin-bottom: 10px;
-}
-
-.event-details p {
-    color: var(--neutral-color);
-    font-size: 14px;
-    margin-bottom: 20px;
-}
-
-.event-actions {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+.admin-btn {
     margin-top: 15px;
-}
-
-.ticket-btn, .comments-btn,.edit-btn {
-    width: 80%;
-    padding: 10px;
-    font-size: 16px;
+    padding: 15px 30px;
+    font-size: 18px;
+    text-decoration: none;
+    background-color: #041d75;
     color: white;
-    background-color: var(--primary-color);
-    border: none;
     border-radius: 5px;
-    cursor: pointer;
-    margin-bottom: 10px;
     transition: background-color 0.3s;
+    display: inline-block;
 }
 
-.ticket-btn:hover, .comments-btn:hover, .edit-btn:hover {
-    background-color: var(--accent-color);
-}
-
-.comments-section {
-    display: none;
-    padding: 10px;
-    background-color: #f4f4f4;
-    border-radius: 5px;
-    margin-top: 10px;
-}
-
-.comments-section ul {
-    padding: 0;
-    list-style: none;
-}
-
-.comments-section li {
-    margin-bottom: 10px;
-    color: var(--neutral-color);
-}
-
-@media (max-width: 768px) {
-    .top-bar {
-        flex-direction: column;
-    }
-
-    .side-menu {
-        width: 200px;
-    }
-
-    .events-container {
-        grid-template-columns: repeat(2, 1fr);
-    }
-}
-
-@media (max-width: 480px) {
-    header {
-        padding: 10px;
-    }
-
-    .menu-toggle {
-        font-size: 18px;
-    }
-
-    .events-container {
-        grid-template-columns: 1fr;
-    }
-
-    .event-card {
-        padding: 10px;
-    }
+.admin-btn:hover {
+    background-color: #6588c8;
 }

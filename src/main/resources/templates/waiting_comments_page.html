@@ -6,6 +6,13 @@
     <link rel="stylesheet" href="/css/waiting_comments_page_style.css">
 </head>
 <body>
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item" th:each="crumb : ${breadcrumb}">
+            <a th:href="${crumb.url}" th:text="${crumb.name}">Link</a>
+        </li>
+    </ol>
+</nav>
 <div class="comments-list">
     <h2>Komentarze oczekujące na akceptację</h2>
     <ul>
@@ -21,6 +28,8 @@
             </form>
         </li>
     </ul>
+    <span th:if="${role eq 'Administrator'}"><a href="/admin_panel" class="admin-btn">Powrót do panelu administratora</a></span>
+    <span th:if="${role eq 'Moderator'}"><a href="/mod_panel" class="admin-btn">Powrót do panelu moderatora</a></span>
 </div>
 </body>
 </html>

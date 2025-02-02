@@ -1,6 +1,7 @@
 package com.eventmanager.event_management.Controller;
 
 import com.eventmanager.event_management.Enum.OrderStatus;
+import com.eventmanager.event_management.Model.Breadcrumb;
 import com.eventmanager.event_management.Model.Order;
 import com.eventmanager.event_management.Model.User;
 import com.eventmanager.event_management.Service.OrderService;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.Arrays;
 import java.util.List;
 
 @Controller
@@ -40,6 +42,12 @@ public class OrderController {
         } else {
             return "redirect:/login";
         }
+
+        model.addAttribute("breadcrumb", Arrays.asList(
+                new Breadcrumb("Strona główna", "/main_page"),
+                new Breadcrumb("Panel moderatora", "/mod_panel"),
+                new Breadcrumb("Zarządzanie zamówieniami", "/manage-orders")
+        ));
 
         String assignedCategory = loggedInUser.getAssignedCategory();
         System.out.println("Kategoria: " + assignedCategory);

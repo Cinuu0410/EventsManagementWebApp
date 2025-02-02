@@ -15,6 +15,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 
 @Controller
 @RequestMapping("/admin")
@@ -62,9 +63,11 @@ public class AdminController {
     }
 
     @PostMapping("/add-image")
-    public String addImage(@RequestParam("image") MultipartFile image, HttpSession session){
+    public String addImages(@RequestParam("images") List<MultipartFile> images, HttpSession session) {
         try {
-            sliderImageService.saveImage(image);
+            for (MultipartFile image : images) {
+                sliderImageService.saveImage(image);
+            }
 
             User loggedInUser = (User) session.getAttribute("loggedInUser");
 
@@ -82,6 +85,4 @@ public class AdminController {
             return "error_page";
         }
     }
-
-
 }

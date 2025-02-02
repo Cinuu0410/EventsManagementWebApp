@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <title>Events App</title>
+    <link rel="stylesheet" th:href="@{/css/change_colors_page_style.css}">
+</head>
+<body>
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item" th:each="crumb : ${breadcrumb}">
+            <a th:href="${crumb.url}" th:text="${crumb.name}">Link</a>
+        </li>
+    </ol>
+</nav>
+<form th:action="@{/admin/update-colors}" method="post">
+    <label for="primary-color">Wybierz kolor podstawowy:</label>
+    <input type="color" id="primary-color" name="primaryColor" value="#3498db">
+
+    <label for="secondary-color">Wybierz kolor drugorzędny:</label>
+    <input type="color" id="secondary-color" name="secondaryColor" value="#2ecc71">
+
+    <label for="button-color">Wybierz kolor przycisków:</label>
+    <input type="color" id="button-color" name="buttonColor" value="#e74c3c">
+
+    <button type="submit">Zapisz kolory</button>
+</form>
+<form th:action="@{/admin/reset-colors}" method="post">
+    <button type="submit" class="reset-btn">Powrót do ustawień domyślnych</button>
+</form>
+<form th:action="@{/admin/add-theme}" method="post">
+    <label for="theme-name">Nazwa motywu:</label>
+    <input type="text" id="theme-name" name="name" required placeholder="Wprowadź nazwę motywu">
+
+    <label for="primary-color">Wybierz kolor podstawowy:</label>
+    <input type="color" id="primary-color-add" name="primaryColor" value="#041d75">
+
+    <label for="secondary-color">Wybierz kolor drugorzędny:</label>
+    <input type="color" id="secondary-color-add" name="secondaryColor" value="#6588c8">
+
+    <label for="button-color">Wybierz kolor przycisków:</label>
+    <input type="color" id="button-color-add" name="buttonColor" value="#2c3e50">
+
+    <button type="submit">Dodaj Motyw</button>
+</form>
+<a href="/admin_panel" class="admin-btn">Powrót do panelu administratora</a>
+</body>
+</html>

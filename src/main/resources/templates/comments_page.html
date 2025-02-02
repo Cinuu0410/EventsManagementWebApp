@@ -22,6 +22,17 @@
                     <span th:text="${comment.content}">Treść komentarza</span>
                 </p>
                 <p th:text="${comment.formattedDate}">Data utworzenia</p>
+                <p>
+                    Ocena: <span th:text="${comment.rating != null ? comment.rating : 'Brak oceny'}"></span>
+                </p>
+
+                <span th:if="${comment.user.username != loggedInUser.username}">
+                        <form th:action="@{/events/{eventId}/comments/{commentId}/rate(eventId=${event.id}, commentId=${comment.id})}" method="post">
+                            <label for="rating">Ocena:</label>
+                            <input type="number" id="rating" name="rating" min="1" max="5" required>
+                            <button type="submit">Oceń komentarz</button>
+                        </form>
+                </span>
             </li>
         </ul>
     </div>
@@ -35,10 +46,8 @@
     </div>
 </div>
 </div>
-
 <footer>
     <p>2025 Events App &copy;</p>
 </footer>
-
 </body>
 </html>

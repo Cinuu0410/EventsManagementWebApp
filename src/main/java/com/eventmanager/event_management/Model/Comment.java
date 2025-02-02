@@ -36,4 +36,9 @@ public class Comment {
     @Transient
     private String formattedDate;
 
+    private Double rating;
+
+    public void setRating(Double rating) {
+        this.rating = rating != null ? Math.round(rating * 10.0) / 10.0 : null;
+    }
 }

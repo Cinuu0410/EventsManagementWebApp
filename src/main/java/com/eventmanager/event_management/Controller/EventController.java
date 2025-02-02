@@ -1,9 +1,6 @@
 package com.eventmanager.event_management.Controller;
 
-import com.eventmanager.event_management.Model.CartItem;
-import com.eventmanager.event_management.Model.Comment;
-import com.eventmanager.event_management.Model.Event;
-import com.eventmanager.event_management.Model.User;
+import com.eventmanager.event_management.Model.*;
 import com.eventmanager.event_management.Service.CommentService;
 import com.eventmanager.event_management.Service.EventService;
 import com.eventmanager.event_management.Service.UserService;
@@ -20,6 +17,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.text.DecimalFormat;
 import java.time.LocalDateTime;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 import java.time.format.DateTimeFormatter;
@@ -154,6 +152,11 @@ public class EventController {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
         comments.forEach(comment -> comment.setFormattedDate(comment.getCreatedAt().format(formatter)));
 
+        comments.forEach(comment -> {
+            Double averageRating = commentService.getAverageRatingForComment(comment.getId());
+            comment.setRating((double) (averageRating != null ? averageRating.intValue() : 0));
+        });
+
         User loggedInUser = (User) session.getAttribute("loggedInUser");
 
         model.addAttribute("event", event.get());
@@ -185,13 +188,52 @@ public class EventController {
         newComment.setCreatedAt(LocalDateTime.now());
         String role = loggedInUser.getRole();
         newComment.setApproved("Administrator".equalsIgnoreCase(role) || "Moderator".equalsIgnoreCase(role));
+        newComment.setRating(null);
         commentService.save(newComment);
 
         return "redirect:/events/" + eventId + "/comments";
     }
 
+    @PostMapping("/events/{eventId}/comments/{commentId}/rate")
+    public String rateComment(@PathVariable("eventId") Long eventId,
+                              @PathVariable("commentId") Long commentId,
+                              @RequestParam("rating") Integer rating,
+                              HttpSession session) {
+        User loggedInUser = (User) session.getAttribute("loggedInUser");
+
+        if (loggedInUser == null || commentId == null || rating == null) {
+            return "redirect:/events/" + eventId + "/comments";
+        }
+
+        Comment comment = commentService.getById(commentId).orElseThrow();
+        if (comment.getUser().equals(loggedInUser)) {
+            return "redirect:/events/" + eventId + "/comments?error=cantRateOwn";
+        }
+
+        commentService.rateComment(commentId, loggedInUser.getId(), rating);
+
+        return "redirect:/events/" + eventId + "/comments";
+    }
+
     @GetMapping("/admin/approve-comments")
-    public String getPendingComments(Model model) {
+    public String getPendingComments(Model model, HttpSession session) {
+        User loggedInUser = (User) session.getAttribute("loggedInUser");
+
+        if (loggedInUser != null) {
+            Long userId = loggedInUser.getId();
+            String loggedRole = userService.getRole(userId);
+            session.setAttribute("loggedInUser", loggedInUser);
+            session.setAttribute("role", loggedRole);
+            model.addAttribute("loggedInUser", loggedInUser);
+            model.addAttribute("role", loggedRole);
+        } else {
+            return "redirect:/login";
+        }
+        model.addAttribute("breadcrumb", Arrays.asList(
+                new Breadcrumb("Strona główna", "/main_page"),
+                new Breadcrumb("Panel moderatora", "/mod_panel"),
+                new Breadcrumb("Akceptacja komentarzy", "/admin/approve-comments")
+        ));
         List<Comment> pendingComments = commentService.getPendingComments();
         model.addAttribute("comments", pendingComments);
 
@@ -208,7 +250,7 @@ public class EventController {
             commentService.save(comment);
         }
 
-        return "redirect:/admin/comments/approve-comments";
+        return "redirect:/admin/approve-comments";
     }
 
     @GetMapping("/events/{id}/order")

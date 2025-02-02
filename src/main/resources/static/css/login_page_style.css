@@ -214,24 +214,22 @@ button {
     }
 }
 
-/* Styl dla alertów błędów */
 .alert.error {
     width: 100%;
     padding: 10px;
     margin-bottom: 20px;
-    background-color: #f44336; /* Czerwony kolor tła */
-    color: #fff; /* Kolor tekstu na biały */
+    background-color: #f44336;
+    color: #fff;
     border-radius: 5px;
     font-size: 16px;
     text-align: center;
     margin-top: 10px;
     position: relative;
     opacity: 0;
-    animation: fadeInAlert 1s forwards; /* Animacja dla pojawiającego się alertu */
+    animation: fadeInAlert 1s forwards;
     box-sizing: border-box;
 }
 
-/* Animacja pojawiania się alertu */
 @keyframes fadeInAlert {
     0% {
         opacity: 0;

@@ -16,4 +16,12 @@ public class SliderImage {
     private byte[] image;
 
     private boolean inSlider;
+
+    @Transient
+    private int position;
+
+    @Column(name = "order_index")
+    private int orderIndex;
+
+    private String description;
 }

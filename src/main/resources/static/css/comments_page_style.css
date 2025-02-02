@@ -7,7 +7,7 @@ html, body {
     height: 100%;
     margin: 0;
     padding: 0;
-    overflow-x: hidden; /* Zapewnia, że nie ma przewijania w poziomie */
+    overflow-x: hidden;
 }
 
 body {
@@ -32,7 +32,7 @@ header {
     align-items: center;
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
     width: 100%;
-    box-sizing: border-box; /* Zapewnia, że padding nie wpływa na szerokość */
+    box-sizing: border-box;
 }
 
 header h1 {
@@ -64,7 +64,7 @@ header .btn:hover {
     gap: 20px;
     width: 100%;
     box-sizing: border-box;
-    padding: 0 10px; /* Dodanie odstępu po bokach */
+    padding: 0 10px;
 }
 
 .comments-list, .add-comment {

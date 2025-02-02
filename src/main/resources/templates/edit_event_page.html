@@ -30,6 +30,9 @@
             <option value="conference" th:selected="${event.category == 'conference'}">Konferencja</option>
         </select>
 
+        <label for="price">Cena:</label>
+        <input type="number" id="price" name="price" th:value="${event.price}"/>
+
         <button type="submit">Zapisz zmiany</button>
     </form>
     <a href="/main_page" class="admin-btn">Powrót na stronę główną</a>

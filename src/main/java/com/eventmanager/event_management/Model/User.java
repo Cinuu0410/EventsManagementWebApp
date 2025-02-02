@@ -20,7 +20,6 @@ public class User {
     private String assignedCategory;
     private String role;
 
-
     @Transient
     private String rawPassword;
 

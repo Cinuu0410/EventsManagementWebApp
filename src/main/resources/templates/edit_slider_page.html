@@ -3,62 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" th:href="@{/css/edit_slider_page_style.css}">
-    <title>Edytuj Slider</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-        }
-        h1 {
-            text-align: center;
-            margin-top: 20px;
-        }
-        .slider-container {
-            width: 80%;
-            margin: 20px auto;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 20px;
-        }
-        .slider-item {
-            border: 1px solid #ccc;
-            border-radius: 8px;
-            padding: 10px;
-            text-align: center;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        }
-        .slider-item img {
-            max-width: 100%;
-            height: auto;
-            border-radius: 8px;
-        }
-        .slider-item label {
-            display: block;
-            margin-top: 10px;
-        }
-        .save-button {
-            display: block;
-            margin: 20px auto;
-            padding: 10px 20px;
-            background-color: #4CAF50;
-            color: white;
-            border: none;
-            border-radius: 8px;
-            font-size: 16px;
-            cursor: pointer;
-            transition: background-color 0.3s;
-        }
-        .save-button:hover {
-            background-color: #45a049;
-        }
-    </style>
+    <title>Events App</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css">
 </head>
 <body>
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item" th:each="crumb : ${breadcrumb}">
+            <a th:href="${crumb.url}" th:text="${crumb.name}">Link</a>
+        </li>
+    </ol>
+</nav>
 <h1>Edytuj zdjęcia w sliderze</h1>
-<form th:action="@{/slider/update}" method="post">
-    <div class="slider-container">
-        <div class="slider-item" th:each="image : ${allImages}">
+<form id="sliderForm" th:action="@{/slider/update}" method="post">
+    <div id="sortable" class="slider-container">
+        <div class="slider-item" th:each="image : ${allImages}" th:data-id="${image.id}">
             <img th:src="@{/slider/image/{id}(id=${image.id})}" alt="Obraz">
             <label>
                 <input type="checkbox" name="selectedImages" th:value="${image.id}" th:checked="${image.inSlider}">
@@ -66,7 +27,30 @@
             </label>
         </div>
     </div>
+    <input type="hidden" name="imageOrder" id="imageOrder">
     <button type="submit" class="save-button">Zapisz</button>
+
 </form>
+<a href="/admin_panel" class="admin-btn">Powrót do panelu administratora</a>
+
+<script>
+    $(document).ready(function () {
+        $("#sortable").sortable({
+            update: function () {
+                let order = $("#sortable .slider-item").map(function () {
+                    return $(this).data("id");
+                }).get().join(",");
+                $("#imageOrder").val(order);
+            }
+        });
+
+        $("#sliderForm").submit(function () {
+            let order = $("#sortable .slider-item").map(function () {
+                return $(this).data("id");
+            }).get().join(",");
+            $("#imageOrder").val(order);
+        });
+    });
+</script>
 </body>
 </html>

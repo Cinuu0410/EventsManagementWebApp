@@ -14,7 +14,7 @@ public class ModeratorService {
 
     public void assignCategoryToModerator(Long moderatorId, String category) {
         User moderator = userRepository.findById(moderatorId).orElseThrow(() -> new IllegalArgumentException("User not found"));
-        EventCategory selectedCategory = EventCategory.valueOf(category.toUpperCase());
+        EventCategory selectedCategory = EventCategory.valueOf(category.toLowerCase());
         moderator.setAssignedCategory(selectedCategory.name());
 
         userRepository.save(moderator);

@@ -6,6 +6,13 @@
     <title>Events App</title>
 </head>
 <body>
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item" th:each="crumb : ${breadcrumb}">
+            <a th:href="${crumb.url}" th:text="${crumb.name}">Link</a>
+        </li>
+    </ol>
+</nav>
 <div class="upload-container">
     <h1>Dodaj wydarzenie do bazy danych</h1>
     <form action="/admin/add-event" method="POST" enctype="multipart/form-data">
@@ -33,7 +40,8 @@
 
         <button type="submit">Dodaj wydarzenie</button>
     </form>
-    <a href="/main_page" class="admin-btn">Powrót na stronę główną</a>
+    <span th:if="${role eq 'Administrator'}"><a href="/admin_panel" class="admin-btn">Powrót do panelu administratora</a></span>
+    <span th:if="${role eq 'Moderator'}"><a href="/mod_panel" class="admin-btn">Powrót do panelu moderatora</a></span>
 </div>
 </body>
 </html>

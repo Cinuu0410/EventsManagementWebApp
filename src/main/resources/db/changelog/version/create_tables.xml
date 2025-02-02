@@ -88,12 +88,46 @@
             <column name="is_approved" type="boolean">
                 <constraints nullable="false"/>
             </column>
+            <column name="rating" type="DOUBLE">
+                <constraints nullable="true"/>
+            </column>
         </createTable>
         <addForeignKeyConstraint baseTableName="comment"
                                  baseColumnNames="user_id"
                                  referencedTableName="app_user"
                                  referencedColumnNames="id"
                                  constraintName="fk_comments_user"/>
+    </changeSet>
+
+    <changeSet id="comment-rating-table-create" author="admin">
+        <createTable tableName="comment_rating">
+            <column name="id" type="BIGINT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="rating" type="DOUBLE">
+                <constraints nullable="false"/>
+            </column>
+            <column name="comment_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="user_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <addForeignKeyConstraint
+                baseColumnNames="comment_id"
+                baseTableName="comment_rating"
+                constraintName="fk_comment_rating_comment"
+                referencedColumnNames="id"
+                referencedTableName="comment"
+                onDelete="CASCADE"/>
+        <addForeignKeyConstraint
+                baseColumnNames="user_id"
+                baseTableName="comment_rating"
+                constraintName="fk_comment_rating_user"
+                referencedColumnNames="id"
+                referencedTableName="app_user"
+                onDelete="CASCADE"/>
     </changeSet>
 
 <!--    Tabela Slider-->
@@ -104,6 +138,12 @@
             </column>
             <column name="in_slider" type="BOOLEAN">
                 <constraints nullable="false"/>
+            </column>
+            <column name="order_index" type="INTEGER">
+                <constraints nullable="true"/>
+            </column>
+            <column name="description" type="VARCHAR2(100)">
+                <constraints nullable="true"/>
             </column>
             <column name="image" type="BLOB">
                 <constraints nullable="true"/>
@@ -144,6 +184,26 @@
                 referencedColumnNames="id"
                 constraintName="fk_order_event"
                 onDelete="CASCADE"/>
+    </changeSet>
+    
+    <changeSet id="color_theme-create-table" author="admin">
+        <createTable tableName="color_themes">
+            <column name="id" type="BIGINT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="name" type="VARCHAR2(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="primary_color" type="VARCHAR2(10)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="secondary_color" type="VARCHAR2(10)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="button_color" type="VARCHAR2(10)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
     </changeSet>
 
 </databaseChangeLog>

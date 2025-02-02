@@ -25,7 +25,9 @@
                 </span>
                 <li><a href="/eventsList">Wydarzenia</a></li>
                 <li><a href="/photo_gallery">Galeria</a></li>
-                <li><a href="/contact">Kontakt</a></li>
+                <li>
+                    <span th:if="${loggedInUser}"><a href="/my_profile">Mój profil</a></span>
+                </li>
                 <li>
                     <span th:if="${role eq 'Administrator'}"><a href="/admin_panel">Panel administratora</a></span>
                 </li>
@@ -66,6 +68,7 @@
         <div class="swiper-wrapper">
             <div class="swiper-slide" th:each="sliderImage : ${getSliderImages}">
                 <img th:src="@{/slider/image/{id}(id=${sliderImage.id})}" alt="Obraz ze slidera">
+                <p th:text="${sliderImage.description}">Opis zdjęcia</p>
             </div>
         </div>
         <div class="swiper-button-next"></div>
@@ -73,13 +76,12 @@
         <div class="swiper-pagination"></div>
     </div>
 </div>
-
 <footer>
     <p>2025 Events App &copy;</p>
 </footer>
 
 <script>
-    document.addEventListener('DOMContentLoaded', () => {
+    document.addEventListener("DOMContentLoaded", function () {
         const swiper = new Swiper('.swiper-container', {
             loop: true,
             slidesPerView: 1,
@@ -108,8 +110,34 @@
                 },
             },
         });
+        console.log("Swiper initialized:", swiper);
+    });
+</script>
+</script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        function equalizeHeights() {
+            let cards = document.querySelectorAll('.gallery-card');
+            let maxHeight = 0;
 
-        console.log(swiper);
+            // Resetowanie wysokości przed ponownym obliczeniem
+            cards.forEach(card => card.style.height = 'auto');
+
+            // Znajdujemy najwyższą kartę
+            cards.forEach(card => {
+                if (card.offsetHeight > maxHeight) {
+                    maxHeight = card.offsetHeight;
+                }
+            });
+
+            // Ustawiamy wszystkim kartom tę samą wysokość
+            cards.forEach(card => card.style.height = maxHeight + 'px');
+        }
+
+        equalizeHeights(); // Uruchamiamy na start
+
+        // Ponowna aktualizacja, gdy okno się zmienia
+        window.addEventListener("resize", equalizeHeights);
     });
 </script>
 <script>

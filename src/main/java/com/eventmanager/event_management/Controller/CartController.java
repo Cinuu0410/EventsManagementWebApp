@@ -76,6 +76,10 @@ public class CartController {
 
         @SuppressWarnings("unchecked")
         List<CartItem> cart = (List<CartItem>) session.getAttribute("cart");
+        if (cart == null) {
+            cart = new ArrayList<>();
+            session.setAttribute("cart", cart);
+        }
 
         DecimalFormat df = new DecimalFormat("0.00");
 
