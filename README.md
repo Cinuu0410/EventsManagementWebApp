@@ -41,3 +41,23 @@ Moderator panel
 ![image](https://github.com/user-attachments/assets/d4e80108-c465-4c6a-a6cc-49fcd75c72a3)
 
 # Screenshots
+
+![image](https://github.com/user-attachments/assets/c3f04f34-d906-4448-acd0-bdb5799c64f6)
+
+![image](https://github.com/user-attachments/assets/b0ef5ca6-cad4-4719-947f-2948ad703e8d)
+
+![image](https://github.com/user-attachments/assets/853f7cbf-9869-42a0-8ce9-f546d4ae9803)
+
+![image](https://github.com/user-attachments/assets/7ae10897-5654-448b-8e68-77c644798734)
+
+![image](https://github.com/user-attachments/assets/21ef1cdd-144e-4f0c-8dd9-257ef6585571)
+
+![image](https://github.com/user-attachments/assets/eb736aef-68cd-4bd6-85ac-1e99bd498a49)
+
+![image](https://github.com/user-attachments/assets/e46ee028-c923-4e53-bbdf-f39a5c8b1afa)
+
+![image](https://github.com/user-attachments/assets/0a8d8ba7-58fe-4eb5-aa8d-51e70c09015e)
+
+![image](https://github.com/user-attachments/assets/22d88096-5d5b-4fd3-b188-5d5a642cccd9)
+
+![image](https://github.com/user-attachments/assets/521fc063-9040-429f-b9d2-ac7adb0c5cf7)
