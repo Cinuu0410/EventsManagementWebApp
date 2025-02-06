@@ -18,7 +18,7 @@ public class UserService {
         return userRepository.findRole(userId);
     }
 
-    public void register(String username, String password, String firstName, String lastName, String email, String role) {
+    public void register(String username, String password, String firstName, String lastName, String email, String phoneNumber, String role) {
         User newUser = new User();
         newUser.setUsername(username);
         String hashedPassword = hashPassword(password);
@@ -26,6 +26,7 @@ public class UserService {
         newUser.setFirstName(firstName);
         newUser.setLastName(lastName);
         newUser.setEmail(email);
+        newUser.setPhoneNumber(phoneNumber);
         newUser.setRole("Uzytkownik");
 
         userRepository.save(newUser);

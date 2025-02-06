@@ -23,7 +23,7 @@ public class RegisterController {
     @PostMapping("/register")
     public String register(@RequestParam String username, @RequestParam String password,
                            @RequestParam String firstName, @RequestParam String lastName,
-                           @RequestParam String email, @RequestParam(required = false) String role, RedirectAttributes redirectAttributes,
+                           @RequestParam String email, @RequestParam String phoneNumber, @RequestParam(required = false) String role, RedirectAttributes redirectAttributes,
                            HttpSession session) {
 
         if (userService.userExists(username)) {
@@ -32,7 +32,7 @@ public class RegisterController {
         }
 
         if (userService != null) {
-            userService.register(username, password, firstName, lastName, email, role);
+            userService.register(username, password, firstName, lastName, email, phoneNumber, role);
         }
 
         session.setAttribute("username", username);
