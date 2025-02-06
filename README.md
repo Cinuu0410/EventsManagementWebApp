@@ -1,6 +1,6 @@
 # Project overview
 This is a web application for managing events, built using Java and Spring Boot. It allows users to browse and register for events, leave comments, and purchase tickets. The app also includes an admin panel for event and content management. Additionally, JavaMailSender is used to send email notifications when an order is placed, ensuring users are confirmed about their order status. Thymeleaf is leveraged for rendering dynamic HTML content, enabling a seamless and customizable user experience.
-
+ 
 # Technologies
 1. Java 17
 2. Spring Boot 3.4.1
