@@ -61,3 +61,6 @@ Moderator panel
 ![image](https://github.com/user-attachments/assets/22d88096-5d5b-4fd3-b188-5d5a642cccd9)
 
 ![image](https://github.com/user-attachments/assets/521fc063-9040-429f-b9d2-ac7adb0c5cf7)
+
+![image](https://github.com/user-attachments/assets/07f49af9-f998-485e-8b4f-894661d10443)
+
