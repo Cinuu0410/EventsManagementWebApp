@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <title>Events App</title>
+    <link rel="stylesheet" href="/css/waiting_comments_page_style.css">
+</head>
+<body>
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item" th:each="crumb : ${breadcrumb}">
+            <a th:href="${crumb.url}" th:text="${crumb.name}">Link</a>
+        </li>
+    </ol>
+</nav>
+<div class="comments-list">
+    <h2>Komentarze oczekujące na akceptację</h2>
+    <ul>
+        <li th:each="comment : ${comments}">
+            <p>
+                <strong th:text="${comment.user.username}">Użytkownik</strong>:
+                <span th:text="${comment.content}">Treść komentarza</span>
+            </p>
+            <p th:text="${comment.formattedDate}">Data utworzenia</p>
+
+            <form th:action="@{/admin/comments/accept/{id}(id=${comment.id})}" method="POST">
+                <button type="submit">Akceptuj</button>
+            </form>
+        </li>
+    </ul>
+    <span th:if="${role eq 'Administrator'}"><a href="/admin_panel" class="admin-btn">Powrót do panelu administratora</a></span>
+    <span th:if="${role eq 'Moderator'}"><a href="/mod_panel" class="admin-btn">Powrót do panelu moderatora</a></span>
+</div>
+</body>
+</html>

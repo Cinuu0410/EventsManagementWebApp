@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="pl" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Events App</title>
+    <link rel="stylesheet" th:href="@{/css/register_page_style.css}">
+</head>
+
+<body>
+<div class="register-box">
+    <h2>Rejestracja</h2>
+    <form th:action="@{/register}" method="post" onsubmit="return validatePasswords()">
+
+        <div th:if="${errorMessage}" class="alert error">
+            <p th:text="${errorMessage}"></p>
+        </div>
+        <div class="alert-container">
+            <div id="password-error" class="alert error" style="display: none;">
+                <p>Hasła muszą się zgadzać!</p>
+            </div>
+        </div>
+
+        <div class="user-box">
+            <input type="text" id="username" name="username" required>
+            <label>Nazwa użytkownika</label>
+        </div>
+        <div class="user-box">
+            <input type="text" id="firstName" name="firstName" required>
+            <label>Imię</label>
+        </div>
+        <div class="user-box">
+            <input type="text" id="lastName" name="lastName" required>
+            <label>Nazwisko</label>
+        </div>
+        <div class="user-box">
+            <input type="email" id="email" name="email" required>
+            <label>Adres e-mail</label>
+        </div>
+        <div class="user-box">
+            <input type="tel" id="phoneNumber" name="phoneNumber" pattern="[0-9]{9}">
+            <label>Numer telefonu: </label>
+        </div>
+        <div class="user-box">
+            <input type="password" id="password" name="password" required>
+            <label>Hasło</label>
+        </div>
+        <div class="user-box">
+            <input type="password" id="confirmPassword" name="confirmPassword" required>
+            <label>Potwierdź hasło</label>
+        </div>
+        <button type="submit" class="register-btn">
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            Zarejestruj się
+        </button>
+    </form>
+</div>
+
+<script>
+    function validatePasswords() {
+        var password = document.getElementById("password").value;
+        var confirmPassword = document.getElementById("confirmPassword").value;
+
+        var alertElement = document.getElementById("password-error");
+
+        if (password !== confirmPassword) {
+            alertElement.style.display = "block";
+            return false;
+        } else {
+            alertElement.style.display = "none";
+            return true;
+        }
+    }
+</script>
+</body>
+</html>

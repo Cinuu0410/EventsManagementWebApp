@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                   https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="app-user-inserts" author="admin">
+        <insert tableName="app_user">
+            <column name="first_name" value = "Marcin"/>
+            <column name="last_name" value = "Zaczeniuk"/>
+            <column name="email" value="m.zaczeniuk@gmail.com"/>
+            <column name="phone_number" value="123456789"/>
+            <column name="username" value="Admin"/>
+            <column name="password" value="10a23e7eacabe2317f458fac266a50233d5d02b31244be70477f4d780b7d2255"/> <!-- hasloo -->
+            <column name="role" value="Administrator"/>
+        </insert>
+        <insert tableName="app_user">
+            <column name="first_name" value = "Piotr"/>
+            <column name="last_name" value = "Nalewajko"/>
+            <column name="email" value="cinuu0410@gmail.com"/>
+            <column name="phone_number" value="111222333"/>
+            <column name="username" value="Piotrulo123"/>
+            <column name="password" value="10a23e7eacabe2317f458fac266a50233d5d02b31244be70477f4d780b7d2255"/> <!-- hasloo -->
+            <column name="role" value="Uzytkownik"/>
+        </insert>
+        <insert tableName="app_user">
+            <column name="first_name" value = "Krzysztof"/>
+            <column name="last_name" value = "Mazurek"/>
+            <column name="email" value="k.mazurek@gmail.com"/>
+            <column name="phone_number" value="333444555"/>
+            <column name="username" value="Mazur123"/>
+            <column name="password" value="10a23e7eacabe2317f458fac266a50233d5d02b31244be70477f4d780b7d2255"/> <!-- hasloo -->
+            <column name="role" value="Uzytkownik"/>
+        </insert>
+        <insert tableName="app_user">
+            <column name="first_name" value = "Kamil"/>
+            <column name="last_name" value = "Mincewicz"/>
+            <column name="email" value="k.mincewicz@gmail.com"/>
+            <column name="phone_number" value="999888777"/>
+            <column name="username" value="Kamilek123"/>
+            <column name="password" value="10a23e7eacabe2317f458fac266a50233d5d02b31244be70477f4d780b7d2255"/> <!-- hasloo -->
+            <column name="role" value="Uzytkownik"/>
+        </insert>
+        <insert tableName="app_user">
+            <column name="first_name" value = "Adam"/>
+            <column name="last_name" value = "Kozak"/>
+            <column name="email" value="a.kozak@gmail.com"/>
+            <column name="phone_number" value="122333123"/>
+            <column name="username" value="Mod"/>
+            <column name="assigned_category" value="concert"/>
+            <column name="password" value="10a23e7eacabe2317f458fac266a50233d5d02b31244be70477f4d780b7d2255"/> <!-- hasloo -->
+            <column name="role" value="Moderator"/>
+        </insert>
+        <insert tableName="app_user">
+            <column name="first_name" value = "Andrzej"/>
+            <column name="last_name" value = "Rogaczewski"/>
+            <column name="email" value="a.rogaczewski@gmail.com"/>
+            <column name="phone_number" value="987654321"/>
+            <column name="username" value="Mod2"/>
+            <column name="password" value="10a23e7eacabe2317f458fac266a50233d5d02b31244be70477f4d780b7d2255"/> <!-- hasloo -->
+            <column name="role" value="Moderator"/>
+        </insert>
+    </changeSet>
+
+    <changeSet id="event-inserts" author="admin">
+        <insert tableName="event">
+            <column name="title" value = "Juwenalia Białystok 2025"/>
+            <column name="description" value = "Juwenalia znowu zawitają do Białegostoku. Masa artystów, super emocje."/>
+            <column name="category" value = "concert"/>
+            <column name="event_date" value="2025-05-01 18:00:00"/>
+            <column name="created_at" value="2025-01-01"/>
+            <column name="price" value="80"/>
+        </insert>
+        <insert tableName="event">
+            <column name="title" value = "Medykalia Białystok 2025"/>
+            <column name="description" value = "Lekarze, stomatolodzy, kosmetolodzy i reszta! Serdecznie zapraszamy na coroczną imprezę tylko dla UmB!"/>
+            <column name="category" value = "concert"/>
+            <column name="event_date" value="2025-06-20 16:00:00"/>
+            <column name="created_at" value="2025-01-15"/>
+            <column name="price" value="50"/>
+        </insert>
+        <insert tableName="event">
+            <column name="title" value = "Koncert Taylor Swift"/>
+            <column name="description" value = "Taylor w Białymstoku!"/>
+            <column name="category" value = "concert"/>
+            <column name="event_date" value="2025-09-10 20:00:00"/>
+            <column name="created_at" value="2025-01-19"/>
+            <column name="price" value="180"/>
+        </insert>
+        <insert tableName="event">
+            <column name="title" value = "Warsztaty Java"/>
+            <column name="description" value = "Zapraszamy na warsztaty programowania w jężyku Java."/>
+            <column name="category" value = "workshops"/>
+            <column name="event_date" value="2025-09-10 20:00:00"/>
+            <column name="created_at" value="2025-01-19"/>
+            <column name="price" value="100"/>
+        </insert>
+        <insert tableName="event">
+            <column name="title" value = "Konferencja naukowa UwB"/>
+            <column name="description" value = "Przyjdź, zobacz, doświadcz."/>
+            <column name="category" value = "conference"/>
+            <column name="event_date" value="2025-09-10 20:00:00"/>
+            <column name="created_at" value="2025-01-19"/>
+            <column name="price" value="20"/>
+        </insert>
+    </changeSet>
+
+    <changeSet id="comment-inserts" author="admin">
+        <insert tableName="comment">
+            <column name="content" value = "Pewnie znowu będzie ogromna kolejka..."/>
+            <column name="user_id" value="2"/>
+            <column name="event_id" value="1"/>
+            <column name="created_at" value="2025-01-13 20:00"/>
+            <column name="is_approved" value="true"/>
+        </insert>
+        <insert tableName="comment">
+            <column name="content" value = "Kozak wydarzenie"/>
+            <column name="user_id" value="1"/>
+            <column name="event_id" value="1"/>
+            <column name="created_at" value="2025-01-13 21:00"/>
+            <column name="is_approved" value="true"/>
+        </insert>
+        <insert tableName="comment">
+            <column name="content" value = "Polecam"/>
+            <column name="user_id" value="3"/>
+            <column name="event_id" value="1"/>
+            <column name="created_at" value="2025-01-26 19:00"/>
+            <column name="is_approved" value="false"/>
+        </insert>
+    </changeSet>
+
+    <changeSet id="orders-inserts" author="admin">
+        <insert tableName="orders">
+            <column name="user_id" value="2"/>
+            <column name="event_id" value="3"/>
+            <column name="ticket_quantity" value="2"/>
+            <column name="status" value="Dostarczone"/>
+        </insert>
+        <insert tableName="orders">
+            <column name="user_id" value="3"/>
+            <column name="event_id" value="4"/>
+            <column name="ticket_quantity" value="1"/>
+            <column name="status" value="Zlozone"/>
+        </insert>
+        <insert tableName="orders">
+            <column name="user_id" value="2"/>
+            <column name="event_id" value="5"/>
+            <column name="ticket_quantity" value="1"/>
+            <column name="status" value="Zlozone"/>
+        </insert>
+    </changeSet>
+</databaseChangeLog>

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" th:href="@{/css/create_new_event_page_style.css}">
+    <title>Events App</title>
+</head>
+<body>
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item" th:each="crumb : ${breadcrumb}">
+            <a th:href="${crumb.url}" th:text="${crumb.name}">Link</a>
+        </li>
+    </ol>
+</nav>
+<div class="upload-container">
+    <h1>Dodaj wydarzenie do bazy danych</h1>
+    <form action="/admin/add-event" method="POST" enctype="multipart/form-data">
+        <label for="title">Tytuł wydarzenia:</label>
+        <input type="text" id="title" name="title" required maxlength="50">
+
+        <label for="description">Opis wydarzenia:</label>
+        <textarea id="description" name="description" required maxlength="102"></textarea>
+
+        <label for="image">Wybierz zdjęcie:</label>
+        <input type="file" id="image" name="image" accept="image/*" required>
+
+        <label for="eventDate">Data wydarzenia:</label>
+        <input type="datetime-local" id="eventDate" name="eventDate" required>
+
+        <label for="category">Kategoria:</label>
+        <select id="category" name="category" required>
+            <option value="concert">Koncert</option>
+            <option value="workshops">Warsztaty</option>
+            <option value="conference">Konferencja</option>
+        </select>
+
+        <label for="price">Cena:</label>
+        <input type="text" id="price" name="price" required>
+
+        <button type="submit">Dodaj wydarzenie</button>
+    </form>
+    <span th:if="${role eq 'Administrator'}"><a href="/admin_panel" class="admin-btn">Powrót do panelu administratora</a></span>
+    <span th:if="${role eq 'Moderator'}"><a href="/mod_panel" class="admin-btn">Powrót do panelu moderatora</a></span>
+</div>
+</body>
+</html>

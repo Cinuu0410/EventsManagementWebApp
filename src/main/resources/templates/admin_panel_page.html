@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <title>Events App</title>
+    <link rel="stylesheet" href="/css/admin_panel_page_style.css">
+</head>
+<body>
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item" th:each="crumb : ${breadcrumb}">
+            <a th:href="${crumb.url}" th:text="${crumb.name}">Link</a>
+        </li>
+    </ol>
+</nav>
+<div class="admin-container">
+    <h1>Panel Administratora</h1>
+    <div class="admin-actions">
+        <a href="/admin/create-event-page" class="admin-btn">Dodaj nowe wydarzenie</a>
+        <a href="/admin/upload-images-to-database" class="admin-btn">Dodaj zdjęcia do bazy</a>
+        <a href="/admin/set-image-description" class="admin-btn">Ustaw opis zdjęć</a>
+        <a href="/admin/edit-slider" class="admin-btn">Edytuj slider</a>
+        <a href="/admin/set-category-to-mod" class="admin-btn">Przydziel kategorię moderatorowi</a>
+        <a href="/admin/change-colors" class="admin-btn">Zmień kolory aplikacji</a>
+        <a href="/main_page" class="admin-btn">Powrót na stronę główną</a>
+    </div>
+</div>
+</body>
+</html>

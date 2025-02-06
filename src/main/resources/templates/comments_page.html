@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Events App</title>
+    <link rel="stylesheet" th:href="@{/css/comments_page_style.css}">
+</head>
+<body>
+<header>
+    <h1 th:text="${event.title}">Komentarze</h1>
+    <a href="/events" class="btn">Powrót do listy wydarzeń</a>
+</header>
+
+<div class="big-container">
+<div class="comments-container">
+    <div class="comments-list">
+        <h2>Komentarze</h2>
+        <ul>
+            <li th:each="comment : ${comments}">
+                <p>
+                    <strong th:text="${comment.user.username}">Użytkownik</strong>:
+                    <span th:text="${comment.content}">Treść komentarza</span>
+                </p>
+                <p th:text="${comment.formattedDate}">Data utworzenia</p>
+                <p>
+                    Ocena: <span th:text="${comment.rating != null ? comment.rating : 'Brak oceny'}"></span>
+                </p>
+
+                <span th:if="${comment.user.username != loggedInUser.username}">
+                        <form th:action="@{/events/{eventId}/comments/{commentId}/rate(eventId=${event.id}, commentId=${comment.id})}" method="post">
+                            <label for="rating">Ocena:</label>
+                            <input type="number" id="rating" name="rating" min="1" max="5" required>
+                            <button type="submit">Oceń komentarz</button>
+                        </form>
+                </span>
+            </li>
+        </ul>
+    </div>
+
+    <div class="add-comment">
+        <h2>Dodaj komentarz</h2>
+        <form th:action="@{/events/{id}/comments(id=${event.id})}" method="post">
+            <textarea name="commentText" placeholder="Dodaj komentarz..." required></textarea>
+            <button type="submit">Dodaj komentarz</button>
+        </form>
+    </div>
+</div>
+</div>
+<footer>
+    <p>2025 Events App &copy;</p>
+</footer>
+</body>
+</html>
